@@ -2,16 +2,16 @@ package ru.rsreu;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import ru.rsreu.tracer.Field;
 
 @Controller
 public class TestController {
 
-    @RequestMapping("test")
-    public ModelAndView testMethod() {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("testView");
-        return mav;
+    @RequestMapping("/test")
+    public Field testMethod() {
+        Field test = new Field();
+        test.setTest("sdasdasd");
+        return test;
     }
 
 }
