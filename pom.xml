@@ -12,8 +12,9 @@
 
     <properties>
         <spring.version>4.3.0.RELEASE</spring.version>
-        <jackson.version>1.9.10</jackson.version>
+        <jackson.version>2.5.0</jackson.version>
         <jdk.version>1.8</jdk.version>
+        <swagger.version>2.5.0</swagger.version>
     </properties>
 
     <dependencies>
@@ -41,31 +42,33 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.5.0</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 
+
+
+        <!--<dependency>-->
+            <!--<groupId>org.codehaus.jackson</groupId>-->
+            <!--<artifactId>jackson-mapper-asl</artifactId>-->
+            <!--<version>${jackson.version}</version>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>SpringMVC</finalName>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.9</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>false</downloadJavadocs>
-                    <wtpversion>2.0</wtpversion>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

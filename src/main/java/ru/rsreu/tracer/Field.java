@@ -1,8 +1,8 @@
 package ru.rsreu.tracer;
 
-/**
- * Created by Alexey_Perov on 6/27/2016.
- */
+import io.swagger.annotations.ApiModel;
+
+@ApiModel("Field")
 public class Field {
 
     public Field() {
@@ -10,6 +10,8 @@ public class Field {
     }
 
     private String test;
+    private Field field;
+
 
     public String getTest() {
         return test;
@@ -17,5 +19,13 @@ public class Field {
 
     public void setTest(String test) {
         this.test = test;
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
     }
 }
