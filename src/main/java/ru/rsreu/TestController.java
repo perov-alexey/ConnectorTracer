@@ -1,24 +1,25 @@
 package ru.rsreu;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import ru.rsreu.tracer.Shop;
+import ru.rsreu.tracer.IOUtils;
+import ru.rsreu.tracer.algorithms.Algorithm;
+import ru.rsreu.tracer.algorithms.SecondAlgorithm;
+import ru.rsreu.tracer.helpers.FieldHelper;
+import ru.rsreu.tracer.pojo.Field;
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Controller
+@RestController
 public class TestController {
 
     @RequestMapping(value="/test", method = RequestMethod.GET)
-    public @ResponseBody Shop getShopInJSON(@RequestParam String name, @RequestBody Shop shop2) {
+    public @ResponseBody Field execute() {
 
-        Shop shop = new Shop();
-        shop.setName(name);
-        shop.setStaffName(new String[]{"mkyong1", "mkyong2"});
+        Algorithm alg = new SecondAlgorithm();
 
-        return shop;
+        Field field = IOUtils.readField("config.json");
+
+        FieldHelper.prepareLinks(field);
+        alg.execute(field);
+        return field;
 
     }
 

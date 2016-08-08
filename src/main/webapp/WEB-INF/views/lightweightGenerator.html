@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <textarea id="result"></textarea>
+
+    <script src="../../lib/jquery-1.12.3.js"></script>
+    <script src="lightweightGenerator.js"></script>
+    <script>
+        $("#result").text(JSON.stringify((new LightweightGenerator()).generateField()));
+    </script>
+</body>
+</html>
