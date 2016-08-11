@@ -6,11 +6,28 @@
 </head>
 <body>
     <textarea id="result"></textarea>
+    <button onclick="trace()">Trace it!</button>
 
-    <script src="../../lib/jquery-1.12.3.js"></script>
-    <script src="lightweightGenerator.js"></script>
+    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="resources/js/lightweightGenerator.js"></script>
     <script>
         $("#result").text(JSON.stringify((new LightweightGenerator()).generateField()));
+
+        function trace() {
+            $.ajax({
+                "url": "field",
+                "data": $("#result").text(),
+                "method": "POST",
+                'dataType': 'application/json',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).done(function(field) {
+                console.log(field);
+            })
+        }
     </script>
 </body>
 </html>
