@@ -9,18 +9,7 @@
     <script>
 
         function trace() {
-            $.ajax({
-                "url": "field",
-                "data": $("#result").text(),
-                "method": "POST",
-                'dataType': 'application/json',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).done(function(field) {
-                console.log(field);
-            })
+
         }
     </script>
 </body>
