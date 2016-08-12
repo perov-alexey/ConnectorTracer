@@ -1,17 +1,13 @@
-angular.module('tracer', ['ngRoute']);
-
-angular.module('tracer').config([
+angular.module('tracer', ['ngRoute']).config([
         '$routeProvider',
         function($routeProvider, $locationProvider){
             $routeProvider
-                .when('/settings',{
-                    templateUrl: 'lightweightGenerator.html',
-                    controller: 'settings.controller',
-                    reloadOnSearch: false,
-                    pageNumber: '21'
+                .when('/tracer',{
+                    templateUrl: 'templates/lightweightGenerator.html',
+                    controller: 'lightweightGenerator.controller'
                 })
                 .otherwise({
-                    redirectTo: '/settings'
+                    redirectTo: '/tracer'
                 });
         }
     ]);

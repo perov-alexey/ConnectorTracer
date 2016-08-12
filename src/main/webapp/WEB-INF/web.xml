@@ -5,7 +5,6 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
-	<!-- Map all errors to Spring MVC handler method. See CustomErrorController.generalError() -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
@@ -24,7 +23,7 @@
 
 	<servlet-mapping>
 		<servlet-name>controller</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
     <listener>

@@ -13,12 +13,14 @@
 
     <mvc:annotation-driven />
 
+    <mvc:default-servlet-handler/>
+
     <!-- Enables swgger ui-->
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:resources mapping="/**" location="/WEB-INF/views/" />
+    <mvc:resources mapping="/templates/**" location="/WEB-INF/templates/" />
 
 
 </beans>

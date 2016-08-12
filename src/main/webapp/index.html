@@ -1,11 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" ng-app="tracer">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <title>Connector tracer</title>
 </head>
 <body>
-    <p>This is index!</p>
+
+<link rel="stylesheet" href="resources/css/tracer.css"/>
+
+<ng-view></ng-view>
+
+<script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+<!--Angular application scripts START-->
+<script src="resources/js/app.js"></script>
+<script src="resources/controllers/lightweightGenerator.controller.js"></script>
+<!--Angular application scripts END-->
 </body>
-<script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
 </html>

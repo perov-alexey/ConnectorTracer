@@ -1,18 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
+<head></head>
 <body>
-    <textarea id="result"></textarea>
-    <button onclick="trace()">Trace it!</button>
+    <textarea class="wide tall">{{field}}</textarea>
+    <button ng-click="traceField()">Trace it!</button>
 
-    <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script src="resources/js/lightweightGenerator.js"></script>
     <script>
-        $("#result").text(JSON.stringify((new LightweightGenerator()).generateField()));
 
         function trace() {
             $.ajax({
@@ -23,7 +17,7 @@
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                },
+                }
             }).done(function(field) {
                 console.log(field);
             })
