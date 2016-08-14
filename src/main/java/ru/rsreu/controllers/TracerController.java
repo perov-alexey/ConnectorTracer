@@ -10,7 +10,7 @@ import ru.rsreu.tracer.pojo.Field;
 @RestController
 public class TracerController {
 
-    @RequestMapping(value = "/field", method = RequestMethod.POST, headers = {"content-type=application/json"})
+    @RequestMapping(value = "/field", method = RequestMethod.POST)
     private @ResponseBody Field traceField(@RequestBody Field field) {
         Algorithm alg = new FirstAlgorithm();
         FieldHelper.prepareLinks(field);
