@@ -17,10 +17,6 @@ public class Connector {
 
     }
 
-    public Connector(String test) {
-
-    }
-
     public Connector(int x, int y, int height, int width) {
         this.x = x;
         this.y = y;
