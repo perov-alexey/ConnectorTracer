@@ -4,9 +4,27 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean class="ru.rsreu.tracer.pojo.Field" scope="prototype"></bean>
-    <bean class="ru.rsreu.tracer.pojo.Connector" scope="prototype"></bean>
+
     <bean class="ru.rsreu.tracer.pojo.Channel" scope="prototype"></bean>
-    <bean class="ru.rsreu.tracer.pojo.Pin" scope="prototype"></bean>
+
+    <bean id="connector" class="ru.rsreu.tracer.pojo.Connector" scope="prototype">
+        <property name="x" value="#{ T(java.lang.Math).random() * 50.0 }" />
+        <property name="y" value="#{ T(java.lang.Math).random() * 50.0 }" />
+        <property name="width" value="#{ T(java.lang.Math).random() * 100.0 + 50}" />
+        <property name="height" value="#{ T(java.lang.Math).random() * 150.0 + 150}" />
+        <property name="pins">
+            <list>
+                <ref bean="pin" />
+                <ref bean="pin" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="pin" class="ru.rsreu.tracer.pojo.Pin" scope="prototype">
+        <property name="x" value="#{ T(java.lang.Math).random() * 50.0 }" />
+        <property name="y" value="#{ T(java.lang.Math).random() * 150.0 }" />
+    </bean>
+
     <!--<bean class="ru.rsreu.tracer.helpers.FieldBuilder" scope="prototype"></bean>-->
 
 </beans>

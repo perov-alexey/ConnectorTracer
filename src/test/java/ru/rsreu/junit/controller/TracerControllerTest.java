@@ -17,6 +17,12 @@ import org.springframework.web.context.WebApplicationContext;
 import ru.rsreu.tracer.pojo.Connector;
 import ru.rsreu.tracer.pojo.Field;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 //@ContextConfiguration("test-servlet-context.xml")
@@ -34,11 +40,6 @@ public class TracerControllerTest {
 
     @Test
     public void testSearchProduct() throws Exception {
-//        Field field = new Field();
-//        Connector firstConnector = new Connector();
-//        Pin
-//        Connector secondConnector = new Connector();
-
         this.mockMvc.perform(get("/product/search")
 //                .param("q", keyword)
                 .accept(MediaType.APPLICATION_JSON))
