@@ -1,44 +1,38 @@
 package ru.rsreu.tracer.algorithms;
 
+import com.rits.cloning.Cloner;
 import ru.rsreu.tracer.CalculateHelper;
-import ru.rsreu.tracer.IOUtils;
 import ru.rsreu.tracer.helpers.ChannelHelper;
 import ru.rsreu.tracer.helpers.FieldHelper;
 import ru.rsreu.tracer.pojo.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class FirstAlgorithm implements Algorithm {
 
     Field field;
-    Integer counter;
+    List<Field> steps = new ArrayList<>();
 
     @Override
-    public void execute(Field field) {
+    public List<Field> execute(Field field) {
+
         this.field = field;
-
-        System.out.println("-------------------------------");
-        counter = 0;
-
+        steps.add(new Cloner().deepClone(field));
 
         List<Trace> traces = new ArrayList<Trace>();
         List<Link> links = field.getLinks();
 
-        Collections.sort(links, new Comparator<Link>() {
-            @Override
-            public int compare(Link firstLink, Link secondLink) {
-                double firstLinkLength = CalculateHelper.getLinkLength(firstLink);
-                double secondLinkLength = CalculateHelper.getLinkLength(secondLink);
-                if (firstLinkLength > secondLinkLength) {
-                    return -1;
-                } else if (firstLinkLength < secondLinkLength) {
-                    return 1;
-                }
-                return 0;
+        Collections.sort(links, (firstLink, secondLink) -> {
+            double firstLinkLength = CalculateHelper.getLinkLength(firstLink);
+            double secondLinkLength = CalculateHelper.getLinkLength(secondLink);
+            if (firstLinkLength > secondLinkLength) {
+                return -1;
+            } else if (firstLinkLength < secondLinkLength) {
+                return 1;
             }
+            return 0;
         });
 
         for (Link link : links) {
@@ -46,20 +40,25 @@ public class FirstAlgorithm implements Algorithm {
             if (!isPathOverloaded(betweenConnectors, true)) {
                 traces.add(traceLink(betweenConnectors, link, true));
                 field.setTraces(traces);
+                steps.add(new Cloner().deepClone(field));
             } else if (!isPathOverloaded(betweenConnectors, false)) {
                 traces.add(traceLink(betweenConnectors, link, false));
                 field.setTraces(traces);
+                steps.add(new Cloner().deepClone(field));
             } else {
                 try {
                     retracePreviousLink(traces, betweenConnectors);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     field.setTraces(new ArrayList<Trace>());
-                    return;
+                    steps.add(new Cloner().deepClone(field));
+                    return steps;
                 }
             }
         }
         field.setTraces(traces);
+        steps.add(new Cloner().deepClone(field));
+        return steps;
     }
 
     private boolean isPathOverloaded(List<Connector> connectors, boolean isTopPath) {
@@ -74,8 +73,6 @@ public class FirstAlgorithm implements Algorithm {
     }
 
     private Trace traceLink(List<Connector> connectors, Link link, boolean isTopPath) {
-        counter++;
-        System.out.println(counter);
         List<Channel> path = new ArrayList<Channel>();
         for (Connector connector : connectors) {
             Channel channel = isTopPath ? connector.getTopChannel() : connector.getBottomChannel();
@@ -88,17 +85,23 @@ public class FirstAlgorithm implements Algorithm {
     private void retracePreviousLink(List<Trace> traces, List<Connector> connectors) throws Exception {
         if (traces.size() > 0) {
             Trace lastTrace = traces.remove(traces.size() - 1);
+            for (Channel channel : lastTrace.getPath()) {
+                channel.setOccupancy(channel.getOccupancy() - 1);
+            }
             if (lastTrace.getPath().get(0).isTop()) {
                 traces.add(traceLink(connectors, lastTrace.getLink(), false));
                 field.setTraces(traces);
+                steps.add(new Cloner().deepClone(field));
             } else {
                 retracePreviousLink(traces, connectors);
                 if (!isPathOverloaded(connectors, true)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), true));
                     field.setTraces(traces);
+                    steps.add(new Cloner().deepClone(field));
                 } else if (!isPathOverloaded(connectors, false)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), false));
                     field.setTraces(traces);
+                    steps.add(new Cloner().deepClone(field));
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);

@@ -3,27 +3,45 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="ru.rsreu.tracer.pojo.Field" scope="prototype"></bean>
+    <bean id="random" class="java.util.Random"></bean>
 
-    <bean class="ru.rsreu.tracer.pojo.Channel" scope="prototype"></bean>
+    <bean id="topChannel" class="ru.rsreu.tracer.pojo.Channel" scope="prototype">
+        <property name="occupancy" value="#{ random.nextInt(5) }" />
+        <property name="top" value="true" />
+    </bean>
+
+    <bean id="bottomChannel" class="ru.rsreu.tracer.pojo.Channel" scope="prototype">
+        <property name="occupancy" value="#{ random.nextInt(5) }" />
+        <property name="top" value="false" />
+    </bean>
+
 
     <bean id="connector" class="ru.rsreu.tracer.pojo.Connector" scope="prototype">
-        <property name="x" value="#{ T(java.lang.Math).random() * 50.0 }" />
-        <property name="y" value="#{ T(java.lang.Math).random() * 50.0 }" />
-        <property name="width" value="#{ T(java.lang.Math).random() * 100.0 + 50}" />
-        <property name="height" value="#{ T(java.lang.Math).random() * 150.0 + 150}" />
+        <property name="x" value="#{ random.nextInt(50) }" />
+        <property name="y" value="#{ random.nextInt(50) }" />
+        <property name="width" value="#{ random.nextInt(50) + 50 }" />
+        <property name="height" value="#{ random.nextInt(150) + 150 }" />
         <property name="pins">
             <list>
                 <ref bean="pin" />
                 <ref bean="pin" />
             </list>
         </property>
+        <property name="topChannel" ref="topChannel"></property>
+        <property name="bottomChannel" ref="bottomChannel"></property>
     </bean>
 
     <bean id="pin" class="ru.rsreu.tracer.pojo.Pin" scope="prototype">
-        <property name="x" value="#{ T(java.lang.Math).random() * 50.0 }" />
-        <property name="y" value="#{ T(java.lang.Math).random() * 150.0 }" />
+        <property name="x" value="#{ random.nextInt(50) }" />
+        <property name="y" value="#{ random.nextInt(150) }" />
+        <property name="container" ref="connector"></property>
     </bean>
+
+    <bean id="link" class="ru.rsreu.tracer.pojo.Link" scope="prototype">
+        <property name="firstPin" ref="pin" />
+        <property name="secondPin" ref="pin" />
+    </bean>
+
 
     <!--<bean class="ru.rsreu.tracer.helpers.FieldBuilder" scope="prototype"></bean>-->
 

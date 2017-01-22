@@ -3,6 +3,7 @@ package ru.rsreu.junit.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,18 +15,11 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import ru.rsreu.tracer.pojo.Connector;
 import ru.rsreu.tracer.pojo.Field;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-//@ContextConfiguration("test-servlet-context.xml")
+@ContextConfiguration("/config.xml")
 public class TracerControllerTest {
 
     @Autowired
@@ -39,13 +33,12 @@ public class TracerControllerTest {
     }
 
     @Test
-    public void testSearchProduct() throws Exception {
-        this.mockMvc.perform(get("/product/search")
-//                .param("q", keyword)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-//                .andExpect(jsonPath("$.name").value(keyword));
+    public void testAccessTracerController() throws Exception {
+        String fieldJson = new ObjectMapper().writeValueAsString(new Field());
+        this.mockMvc.perform(post("/field")
+                .content(fieldJson)
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
     }
 
 }

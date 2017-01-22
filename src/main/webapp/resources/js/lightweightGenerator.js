@@ -1,13 +1,12 @@
 function LightweightGenerator() {
 
-    var AMOUNT_OF_CONNECTORS = 6;
+    var AMOUNT_OF_CONNECTORS = 100;
     var AMOUNT_OF_PINS = 6;
-    var AMOUNT_OF_LINKS = 6;
+    var AMOUNT_OF_PIN_ROWS = 2;
+    var AMOUNT_OF_LINKS = 200;
 
-    //TODO in different rows
-    //In one row so far
-    var MIN_CONNECTOR_Y = 300;
-    var MAX_CONNECTOR_Y = 300;
+    var MIN_CONNECTOR_Y = 100;
+    var MAX_CONNECTOR_Y = 100;
 
     //In one row so far
     var MIN_CONNECTOR_HEIGHT = 200;
@@ -19,11 +18,10 @@ function LightweightGenerator() {
     var MIN_CONNECTOR_PADDING = 30;
     var MAX_CONNECTOR_PADDING = 50;
 
-    var MAX_CHANNEL_CAPACITY = 3;
+    var MIN_CHANNEL_CAPACITY = 50;
+    var MAX_CHANNEL_CAPACITY = 100;
 
-    var CANVAS_WIDTH = 1300;
-
-
+    var CANVAS_WIDTH = 200000;
 
     LightweightGenerator.prototype.generateField = function() {
         var field = {
@@ -72,7 +70,7 @@ function LightweightGenerator() {
 
     LightweightGenerator.prototype.generatePin = function(connector) {
         var pin = {
-            x: this._between(0, connector.width),
+            x: this._between(1, AMOUNT_OF_PIN_ROWS) * (connector.width / (AMOUNT_OF_PIN_ROWS + 1)),
             y: this._between(0, connector.height),
             container: connector.x + "_" + connector.y
         }
@@ -82,7 +80,7 @@ function LightweightGenerator() {
     LightweightGenerator.prototype.generateChannel = function(connector, top) {
         var channel = {
             occupancy: 0,
-            maxCapacity: this._between(0, MAX_CHANNEL_CAPACITY),
+            maxCapacity: this._between(MIN_CHANNEL_CAPACITY, MAX_CHANNEL_CAPACITY),
             connector: connector.x + "_" + connector.y,
             top: top
         }

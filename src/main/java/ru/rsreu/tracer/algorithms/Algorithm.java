@@ -2,8 +2,10 @@ package ru.rsreu.tracer.algorithms;
 
 import ru.rsreu.tracer.pojo.Field;
 
+import java.util.List;
+
 public interface Algorithm {
 
-    void execute(Field field);
+    List<Field> execute(Field field);
 
 }

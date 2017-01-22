@@ -17,6 +17,34 @@ public class Connector {
 
     }
 
+    /**
+     * This constructor set all parameters to itself, sets to all pins itself as container and
+     * sets itself to the channels
+     * @param x             Absolute position on the field by horizontal
+     * @param y             Absolute position on the field by vertical
+     * @param height        Connector height
+     * @param width         Connector width
+     * @param pins          List of pins on connector
+     * @param topChannel    Top channel
+     * @param bottomChannel Bottom channel
+     */
+    public Connector(int x, int y, int height, int width, List<Pin> pins, Channel topChannel, Channel bottomChannel) {
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+        for (Pin pin : pins) {
+            pin.setContainer(this);
+        }
+        this.pins = pins;
+        topChannel.setConnector(this);
+        bottomChannel.setConnector(this);
+        this.topChannel = topChannel;
+        this.bottomChannel = bottomChannel;
+
+    }
+
+    @Deprecated
     public Connector(int x, int y, int height, int width) {
         this.x = x;
         this.y = y;
@@ -24,6 +52,7 @@ public class Connector {
         this.width = width;
     }
 
+    @Deprecated
     public Connector(int x, int y) {
         this.x = x;
         this.y = y;

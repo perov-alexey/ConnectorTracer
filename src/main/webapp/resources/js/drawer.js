@@ -16,7 +16,7 @@ function Drawer() {
         context.rect(x, y, width, height);
         context.strokeStyle = 'black';
         context.stroke();
-    }
+    };
 
     Drawer.prototype.drawLink = function(startX, startY, endX, endY) {
         var context = $(".field")[0].getContext("2d");
@@ -25,7 +25,7 @@ function Drawer() {
         context.lineTo(endX, endY);
         context.strokeStyle = 'grey';
         context.stroke();
-    }
+    };
 
     Drawer.prototype.drawPin = function(centerX, centerY) {
         var context = $(".field")[0].getContext("2d");
@@ -35,7 +35,7 @@ function Drawer() {
         context.fill();
         context.strokeStyle = 'black';
         context.stroke();
-    }
+    };
 
     Drawer.prototype.drawChannel = function(x, y, length, full, top, text) {
         var context = $(".field")[0].getContext("2d");
@@ -62,7 +62,7 @@ function Drawer() {
         if (text) {
             context.fillText(text, x + length/2 - context.measureText(text).width/2, textPositionY);
         }
-    }
+    };
 
     Drawer.prototype.drawTrace = function(points) {
         var context = $(".field")[0].getContext("2d");
@@ -76,6 +76,12 @@ function Drawer() {
         }
         context.strokeStyle = 'orange';
         context.stroke();
+    };
+
+    Drawer.prototype.clearField = function() {
+        var canvas = $(".field")[0];
+        var context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
     }
 
 }

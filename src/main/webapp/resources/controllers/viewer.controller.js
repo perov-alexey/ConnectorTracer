@@ -2,21 +2,21 @@ angular.module('tracer')
 
 .controller('viewer.controller', [
     '$scope','$rootScope', '$routeParams',
-        function($scope, $rootScope, $routeParams) {
-
-            console.dir($routeParams);
+        function($scope, $rootScope) {
 
             //TODO To the drawer!
-            drawConnectors = function() {
+            drawConnectors = function(field) {
                 var drawer = new Drawer();
                 var drawerHelper = new DrawerHelper();
 
-                var connectors = drawerHelper.getConnectors($rootScope.field);
+                drawer.clearField();
+
+                var connectors = drawerHelper.getConnectors(field);
                 $.each(connectors, function(i, connector) {
                     drawer.drawConnector(connector.x, connector.y, connector.width, connector.height);
                     var pins = drawerHelper.getPins(connector);
                     $.each(pins, function(i, pin) {
-                        pin = drawerHelper.getPinAbsolute($rootScope.field, pin);
+                        pin = drawerHelper.getPinAbsolute(field, pin);
                         drawer.drawPin(pin.x, pin.y);
                     });
                     var topChannel = drawerHelper.getChannel(connector, true);
@@ -25,21 +25,29 @@ angular.module('tracer')
                     drawer.drawChannel(connector.x, connector.y + connector.height, connector.width, bottomChannel.maxCapacity == bottomChannel.occupancy, bottomChannel.top, bottomChannel.occupancy + "/" + bottomChannel.maxCapacity);
                 });
 
-                var links = drawerHelper.getAbsoluteLinks($rootScope.field);
+                var links = drawerHelper.getAbsoluteLinks(field);
                 $.each(links, function(i, link) {
                     drawer.drawLink(link.firstPin.x, link.firstPin.y, link.secondPin.x, link.secondPin.y);
                 });
 
-                var traces = drawerHelper.getTraces($rootScope.field);
+                var traces = drawerHelper.getTraces(field);
                 $.each(traces, function(i, trace) {
-                    var points = drawerHelper.getTracePoints($rootScope.field, trace);
+                    var points = drawerHelper.getTracePoints(field, trace);
                     if (points) {
                         drawer.drawTrace(points);
                     }
                 });
+            };
+
+            function drawNextStep(steps) {
+                if (steps.length > 0) {
+                    drawConnectors(steps[0]);
+                    setTimeout(drawNextStep.bind(null, steps), 1000);
+                    steps.shift();
+                }
             }
 
-            drawConnectors();
+            drawNextStep($rootScope.steps);
 
         }
 ]);

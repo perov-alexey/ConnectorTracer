@@ -11,13 +11,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class SecondAlgorithm implements Algorithm {
+public class SecondAlgorithm {
 
     Field field;
     Integer counter;
     StringBuilder bldr = new StringBuilder();
 
-    @Override
+//    @Override
     public void execute(Field field) {
         this.field = field;
         IOUtils.writeString(IOUtils.getString(field) + ",\n", "result.json");

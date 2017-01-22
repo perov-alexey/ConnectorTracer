@@ -11,6 +11,11 @@ public class Pin {
 
     }
 
+    public Pin(int x, int y) {
+        this.y = y;
+        this.x = x;
+    }
+
     public Pin(int x, int y, Connector container) {
         this.y = y;
         this.x = x;
