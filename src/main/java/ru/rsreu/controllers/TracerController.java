@@ -12,10 +12,10 @@ import java.util.List;
 public class TracerController {
 
     @RequestMapping(value = "/field", method = RequestMethod.POST)
-    private @ResponseBody List<Field> traceField(@RequestBody Field field) {
+    private @ResponseBody List<Field> traceField(@RequestBody Field field, @RequestParam(required = false) boolean debugEnabled) {
         Algorithm alg = new FirstAlgorithm();
         FieldHelper.prepareLinks(field);
-        List<Field> steps = alg.execute(field);
+        List<Field> steps = alg.execute(field, debugEnabled);
         return steps;
     }
 

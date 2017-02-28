@@ -12,13 +12,15 @@ import java.util.List;
 
 public class FirstAlgorithm implements Algorithm {
 
-    Field field;
-    List<Field> steps = new ArrayList<>();
+    private Field field;
+    private List<Field> steps = new ArrayList<>();
+    private boolean debugEnabled;
 
     @Override
-    public List<Field> execute(Field field) {
+    public List<Field> execute(Field field, boolean debugEnabled) {
 
         this.field = field;
+        this.debugEnabled = debugEnabled;
         steps.add(new Cloner().deepClone(field));
 
         List<Trace> traces = new ArrayList<Trace>();
@@ -39,19 +41,16 @@ public class FirstAlgorithm implements Algorithm {
             List<Connector> betweenConnectors = FieldHelper.getConnectorsBetween(field, link.getFirstPin().getContainer(), link.getSecondPin().getContainer());
             if (!isPathOverloaded(betweenConnectors, true)) {
                 traces.add(traceLink(betweenConnectors, link, true));
-                field.setTraces(traces);
-                steps.add(new Cloner().deepClone(field));
+                updateFieldTraces(field, traces);
             } else if (!isPathOverloaded(betweenConnectors, false)) {
                 traces.add(traceLink(betweenConnectors, link, false));
-                field.setTraces(traces);
-                steps.add(new Cloner().deepClone(field));
+                updateFieldTraces(field, traces);
             } else {
                 try {
                     retracePreviousLink(traces, betweenConnectors);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
-                    field.setTraces(new ArrayList<Trace>());
-                    steps.add(new Cloner().deepClone(field));
+                    updateFieldTraces(field, traces);
                     return steps;
                 }
             }
@@ -90,18 +89,15 @@ public class FirstAlgorithm implements Algorithm {
             }
             if (lastTrace.getPath().get(0).isTop()) {
                 traces.add(traceLink(connectors, lastTrace.getLink(), false));
-                field.setTraces(traces);
-                steps.add(new Cloner().deepClone(field));
+                updateFieldTraces(field, traces);
             } else {
                 retracePreviousLink(traces, connectors);
                 if (!isPathOverloaded(connectors, true)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), true));
-                    field.setTraces(traces);
-                    steps.add(new Cloner().deepClone(field));
+                    updateFieldTraces(field, traces);
                 } else if (!isPathOverloaded(connectors, false)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), false));
-                    field.setTraces(traces);
-                    steps.add(new Cloner().deepClone(field));
+                    updateFieldTraces(field, traces);
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
@@ -113,5 +109,16 @@ public class FirstAlgorithm implements Algorithm {
         } else {
             throw new Exception("Traces array is empty");
         }
+    }
+
+    private void updateFieldTraces(Field field, List<Trace> traces) {
+        field.setTraces(traces);
+        if (isDebugEnabled()) {
+            steps.add(new Cloner().deepClone(field));
+        }
+    }
+
+    public boolean isDebugEnabled() {
+        return debugEnabled;
     }
 }

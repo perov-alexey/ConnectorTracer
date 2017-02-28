@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface Algorithm {
 
-    List<Field> execute(Field field);
+    List<Field> execute(Field field, boolean debugEnabled);
 
 }
