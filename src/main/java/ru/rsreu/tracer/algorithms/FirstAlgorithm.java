@@ -88,15 +88,19 @@ public class FirstAlgorithm implements Algorithm {
                 channel.setOccupancy(channel.getOccupancy() - 1);
             }
             if (lastTrace.getPath().get(0).isTop()) {
-                traces.add(traceLink(connectors, lastTrace.getLink(), false));
-                updateFieldTraces(field, traces);
+                if (!isPathOverloaded(connectors, false)) {
+                    traces.add(traceLink(connectors, lastTrace.getLink(), false));
+                    updateFieldTraces(field, traces);
+                } else {
+                    try {
+                        retracePreviousLink(traces, connectors);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
             } else {
-                retracePreviousLink(traces, connectors);
                 if (!isPathOverloaded(connectors, true)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), true));
-                    updateFieldTraces(field, traces);
-                } else if (!isPathOverloaded(connectors, false)) {
-                    traces.add(traceLink(connectors, lastTrace.getLink(), false));
                     updateFieldTraces(field, traces);
                 } else {
                     try {
