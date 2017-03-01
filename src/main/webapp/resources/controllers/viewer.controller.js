@@ -4,8 +4,16 @@ angular.module('tracer')
     '$scope','$rootScope', '$routeParams',
         function($scope, $rootScope) {
 
+            var LAST_CONNECTOR_RIGHT_PADDING = 10;
+
             //TODO To the drawer!
-            drawConnectors = function(field) {
+            var drawConnectors = function(field) {
+
+                if (field) {
+                    var lastConnector = field.connectors[field.connectors.length - 1];
+                    $("canvas").attr("width", lastConnector.x + lastConnector.width + LAST_CONNECTOR_RIGHT_PADDING);
+                }
+
                 var drawer = new Drawer();
                 var drawerHelper = new DrawerHelper();
 

@@ -5,8 +5,30 @@
 
     <link rel="stylesheet" href="resources/css/tracer.css"/>
 
+    <div>
+        <label>
+            Amount of connectors: <input ng-model="connectorsAmount">
+        </label>
+        <label>
+            Amount of links: <input ng-model="linksAmount">
+        </label>
+        <label>
+            Amount of pins in connector: <input ng-model="pinsAmount">
+        </label>
+        <label>
+            Amount of pins row: <input ng-model="pinsRowsAmount">
+        </label>
+        <div>
+            <button ng-click="generateField()">Generate Field</button>
+        </div>
+    </div>
+
     <textarea class="wide tall" ng-model="field"></textarea>
-    <button ng-click="traceField()">Trace it!</button>
+
+    <div>
+        <button ng-click="traceField()">Trace field</button>
+        <button ng-click="traceFieldWithDebug()">Trace field in debug mode</button>
+    </div>
 
     <script src="resources/js/lightweightGenerator.js"></script>
 </body>
