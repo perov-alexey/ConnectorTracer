@@ -1,6 +1,8 @@
 package ru.rsreu.tracer.algorithms;
 
 import com.rits.cloning.Cloner;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ru.rsreu.tracer.CalculateHelper;
 import ru.rsreu.tracer.helpers.ChannelHelper;
 import ru.rsreu.tracer.helpers.FieldHelper;
@@ -12,16 +14,19 @@ import java.util.List;
 
 public class FirstAlgorithm implements Algorithm {
 
+    private Logger logger = LogManager.getLogger(FirstAlgorithm.class);
+
     private Field field;
     private List<Field> steps = new ArrayList<>();
     private boolean debugEnabled;
 
     @Override
     public List<Field> execute(Field field, boolean debugEnabled) {
-
         this.field = field;
         this.debugEnabled = debugEnabled;
         steps.add(new Cloner().deepClone(field));
+
+        logger.debug("Start tracing!");
 
         List<Trace> traces = new ArrayList<Trace>();
         List<Link> links = field.getLinks();
@@ -42,9 +47,11 @@ public class FirstAlgorithm implements Algorithm {
             if (!isPathOverloaded(betweenConnectors, true)) {
                 traces.add(traceLink(betweenConnectors, link, true));
                 updateFieldTraces(field, traces);
+                logTrace(link, true);
             } else if (!isPathOverloaded(betweenConnectors, false)) {
                 traces.add(traceLink(betweenConnectors, link, false));
                 updateFieldTraces(field, traces);
+                logTrace(link, false);
             } else {
                 try {
                     retracePreviousLink(traces, betweenConnectors);
@@ -84,6 +91,7 @@ public class FirstAlgorithm implements Algorithm {
     private void retracePreviousLink(List<Trace> traces, List<Connector> connectors) throws Exception {
         if (traces.size() > 0) {
             Trace lastTrace = traces.remove(traces.size() - 1);
+            logUndoTrace(lastTrace.getLink(), lastTrace.getPath().get(0).isTop());
             for (Channel channel : lastTrace.getPath()) {
                 channel.setOccupancy(channel.getOccupancy() - 1);
             }
@@ -91,6 +99,7 @@ public class FirstAlgorithm implements Algorithm {
                 if (!isPathOverloaded(connectors, false)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), false));
                     updateFieldTraces(field, traces);
+                    logTrace(lastTrace.getLink(), true);
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
@@ -102,6 +111,7 @@ public class FirstAlgorithm implements Algorithm {
                 if (!isPathOverloaded(connectors, true)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), true));
                     updateFieldTraces(field, traces);
+                    logTrace(lastTrace.getLink(), true);
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
@@ -124,5 +134,33 @@ public class FirstAlgorithm implements Algorithm {
 
     public boolean isDebugEnabled() {
         return debugEnabled;
+    }
+
+    private void logTrace(Link link, boolean isTopChannel) {
+        logger.debug("Trace {}-{}:{}-{}->{}-{}:{}-{} was traced to {}",
+                link.getFirstPin().getContainer().getX(),
+                link.getFirstPin().getContainer().getY(),
+                link.getFirstPin().getX(),
+                link.getFirstPin().getY(),
+                link.getSecondPin().getContainer().getX(),
+                link.getSecondPin().getContainer().getY(),
+                link.getSecondPin().getX(),
+                link.getSecondPin().getY(),
+                isTopChannel ? "top" : "bottom"
+        );
+    }
+
+    private void logUndoTrace(Link link, boolean isTopChannel) {
+        logger.debug("Trace {}-{}:{}-{}->{}-{}:{}-{} was removed from {}",
+                link.getFirstPin().getContainer().getX(),
+                link.getFirstPin().getContainer().getY(),
+                link.getFirstPin().getX(),
+                link.getFirstPin().getY(),
+                link.getSecondPin().getContainer().getX(),
+                link.getSecondPin().getContainer().getY(),
+                link.getSecondPin().getX(),
+                link.getSecondPin().getY(),
+                isTopChannel ? "top" : "bottom"
+        );
     }
 }
