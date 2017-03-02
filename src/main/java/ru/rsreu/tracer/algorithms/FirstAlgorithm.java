@@ -42,26 +42,16 @@ public class FirstAlgorithm implements Algorithm {
             return 0;
         });
 
-        for (Link link : links) {
-            List<Connector> betweenConnectors = FieldHelper.getConnectorsBetween(field, link.getFirstPin().getContainer(), link.getSecondPin().getContainer());
-            if (!isPathOverloaded(betweenConnectors, true)) {
-                traces.add(traceLink(betweenConnectors, link, true));
-                updateFieldTraces(field, traces);
-                logTrace(link, true);
-            } else if (!isPathOverloaded(betweenConnectors, false)) {
-                traces.add(traceLink(betweenConnectors, link, false));
-                updateFieldTraces(field, traces);
-                logTrace(link, false);
-            } else {
-                try {
-                    retracePreviousLink(traces, betweenConnectors);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    updateFieldTraces(field, traces);
-                    return steps;
-                }
+        try {
+            for (Link link : links) {
+                putLinkToField(link, traces);
             }
+        } catch (Exception e) {
+            logger.error("Objective doesn't have any decisions");
+            updateFieldTraces(field, new ArrayList<>());
+            return steps;
         }
+
         field.setTraces(traces);
         steps.add(new Cloner().deepClone(field));
         return steps;
@@ -103,6 +93,7 @@ public class FirstAlgorithm implements Algorithm {
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
+                        putLinkToField(lastTrace.getLink(), traces);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -115,6 +106,7 @@ public class FirstAlgorithm implements Algorithm {
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
+                        putLinkToField(lastTrace.getLink(), traces);
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
@@ -134,6 +126,21 @@ public class FirstAlgorithm implements Algorithm {
 
     public boolean isDebugEnabled() {
         return debugEnabled;
+    }
+
+    private void putLinkToField(Link link, List<Trace> traces) throws Exception {
+        List<Connector> betweenConnectors = FieldHelper.getConnectorsBetween(field, link.getFirstPin().getContainer(), link.getSecondPin().getContainer());
+        if (!isPathOverloaded(betweenConnectors, true)) {
+            traces.add(traceLink(betweenConnectors, link, true));
+            updateFieldTraces(field, traces);
+            logTrace(link, true);
+        } else if (!isPathOverloaded(betweenConnectors, false)) {
+            traces.add(traceLink(betweenConnectors, link, false));
+            updateFieldTraces(field, traces);
+            logTrace(link, false);
+        } else {
+            retracePreviousLink(traces, betweenConnectors);
+        }
     }
 
     private void logTrace(Link link, boolean isTopChannel) {
@@ -163,4 +170,5 @@ public class FirstAlgorithm implements Algorithm {
                 isTopChannel ? "top" : "bottom"
         );
     }
+
 }
