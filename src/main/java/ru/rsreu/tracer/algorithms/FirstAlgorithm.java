@@ -99,7 +99,7 @@ public class FirstAlgorithm implements Algorithm {
                 if (!isPathOverloaded(connectors, false)) {
                     traces.add(traceLink(connectors, lastTrace.getLink(), false));
                     updateFieldTraces(field, traces);
-                    logTrace(lastTrace.getLink(), true);
+                    logTrace(lastTrace.getLink(), false);
                 } else {
                     try {
                         retracePreviousLink(traces, connectors);
