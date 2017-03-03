@@ -24,7 +24,7 @@ public class FixtureProvider {
         Channel firstConnectorTopChannel = new Channel(1, true);
         Channel firstConnectorBottomChannel = new Channel(1, false);
 
-        Connector firstConnector = new Connector(0, 0, 200, 100, firstConnectorPins, firstConnectorTopChannel, firstConnectorBottomChannel);
+        Connector firstConnector = new Connector(10, 100, 200, 100, firstConnectorPins, firstConnectorTopChannel, firstConnectorBottomChannel);
 
         firstConnectorFirstPin.setContainer(firstConnector);
         firstConnectorTopChannel.setConnector(firstConnector);
@@ -38,7 +38,7 @@ public class FixtureProvider {
         Channel secondConnectorTopChannel = new Channel(2, true);
         Channel secondConnectorBottomChannel = new Channel(1, false);
 
-        Connector secondConnector = new Connector(120, 0, 200, 100, secondConnectorPins, secondConnectorTopChannel, secondConnectorBottomChannel);
+        Connector secondConnector = new Connector(130, 100, 200, 100, secondConnectorPins, secondConnectorTopChannel, secondConnectorBottomChannel);
 
         secondConnectorFirstPin.setContainer(secondConnector);
         secondConnectorSecondPin.setContainer(secondConnector);
@@ -52,7 +52,7 @@ public class FixtureProvider {
         Channel thirdConnectorTopChannel = new Channel(2, true);
         Channel thirdConnectorBottomChannel = new Channel(2, false);
 
-        Connector thirdConnector = new Connector(240, 0, 200, 100, thirdConnectorPins, thirdConnectorTopChannel, thirdConnectorBottomChannel);
+        Connector thirdConnector = new Connector(250, 100, 200, 100, thirdConnectorPins, thirdConnectorTopChannel, thirdConnectorBottomChannel);
 
         thirdConnectorFirstPin.setContainer(thirdConnector);
         thirdConnectorTopChannel.setConnector(thirdConnector);
@@ -66,7 +66,7 @@ public class FixtureProvider {
         Channel fourthConnectorTopChannel = new Channel(1, true);
         Channel fourthConnectorBottomChannel = new Channel(1, false);
 
-        Connector fourthConnector = new Connector(360, 0, 200, 100, fourthConnectorPins, fourthConnectorTopChannel, fourthConnectorBottomChannel);
+        Connector fourthConnector = new Connector(370, 100, 200, 100, fourthConnectorPins, fourthConnectorTopChannel, fourthConnectorBottomChannel);
 
         fourthConnectorFirstPin.setContainer(fourthConnector);
         fourthConnectorSecondPin.setContainer(fourthConnector);
