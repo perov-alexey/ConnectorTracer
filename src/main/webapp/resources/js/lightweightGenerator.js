@@ -90,7 +90,8 @@ function LightweightGenerator() {
         var generator = this;
         var link = {};
         var firstConnectorNumber = generator._between(0, connectors.length - 1);
-        var secondConnectorNumber = generator._between(0, connectors.length - 1);
+        var secondConnectorNumber = connectors[generator._between(firstConnectorNumber + 2, connectors.length - 1)] ?
+            generator._between(firstConnectorNumber + 1, connectors.length - 1) : generator._between(0, firstConnectorNumber - 2);
         link.firstPin = connectors[firstConnectorNumber].pins[generator._between(0, connectors[firstConnectorNumber].pins.length - 1)];
         link.secondPin = connectors[secondConnectorNumber].pins[generator._between(0, connectors[secondConnectorNumber].pins.length - 1)];
         return link;
@@ -98,6 +99,6 @@ function LightweightGenerator() {
 
     LightweightGenerator.prototype._between = function(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    };
 
 }
