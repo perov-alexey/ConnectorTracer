@@ -19,15 +19,16 @@
             Amount of pins row: <input ng-model="pinsRowsAmount">
         </label>
         <div>
-            <button ng-click="generateField()">Generate Field</button>
+            <button ng-click="generateField()"
+                    ng-disabled="connectorsAmount < 3 || linksAmount < 1 || !pinsAmount || pinsRowsAmount < 1">Generate Field</button>
         </div>
     </div>
 
     <textarea class="wide tall" ng-model="field"></textarea>
 
     <div>
-        <button ng-click="traceField()">Trace field</button>
-        <button ng-click="traceFieldWithDebug()">Trace field in debug mode</button>
+        <button ng-click="traceField()" ng-disabled="!field">Trace field</button>
+        <button ng-click="traceFieldWithDebug()" ng-disabled="!field">Trace field in debug mode</button>
     </div>
 
     <script src="resources/js/lightweightGenerator.js"></script>
