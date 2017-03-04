@@ -18,6 +18,37 @@ public class Field {
     private List<Trace> traces = new ArrayList<Trace>();
     private List<Link> links = new ArrayList<Link>();
 
+    /**
+     * Calculate rating of field. Rating calculation based on total traces lengths.
+     * @return Field rating
+     */
+    public int getRating() {
+        return this.traces.stream()
+                .map((trace) -> trace.getLength())
+                .reduce((rating, length) -> rating + length).orElse(Integer.MAX_VALUE);
+    }
+
+    /**
+     * Create trace and update path channels.
+     * @param link Traced link
+     * @param isTopPath Flag indicated which channel used to trace link
+     * @return Created trace
+     */
+    public Trace traceLink(Link link, boolean isTopPath) {
+
+        //TODO Need unit test for this method
+
+        List<Channel> path = new ArrayList<Channel>();
+        for (Connector connector : connectors) {
+            Channel channel = isTopPath ? connector.getTopChannel() : connector.getBottomChannel();
+            channel.setOccupancy(channel.getOccupancy() + 1);
+            path.add(channel);
+        }
+        Trace trace = new Trace(path, link);
+        this.getTraces().add(trace);
+        return trace;
+    }
+
     public List<Connector> getConnectors() {
         return connectors;
     }

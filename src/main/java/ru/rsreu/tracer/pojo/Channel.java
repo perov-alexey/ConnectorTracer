@@ -28,6 +28,14 @@ public class Channel {
     private int maxCapacity;
     private boolean isTop;
 
+    /**
+     * Return true if channel is overloaded.
+     * @return True if channel is overloaded.
+     */
+    public boolean isOverloaded() {
+        return occupancy > maxCapacity;
+    }
+
     public int getOccupancy() {
         return occupancy;
     }

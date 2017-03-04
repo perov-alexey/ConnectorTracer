@@ -56,5 +56,33 @@ public class Trace {
                 ", link=" + link +
                 '}';
     }
+
+    /**
+     * Calculate trace length.
+     * @return Trace length
+     */
+    public int getLength() {
+        Pin firstPin = this.getLink().getFirstPin();
+        Pin secondPin = this.getLink().getSecondPin();
+
+        // If first pin placed right, then switch firstPin and secondPin
+        if (firstPin.getContainer().getX() > secondPin.getContainer().getX()) {
+            Pin tempPin = firstPin;
+            firstPin = secondPin;
+            secondPin = tempPin;
+        }
+
+        int horizontalLength = secondPin.getContainer().getX() + secondPin.getX() -
+                firstPin.getContainer().getX() - firstPin.getX();
+        int verticalLength;
+        if (this.getPath().get(0).isTop()) {
+            verticalLength = firstPin.getY() + secondPin.getY();
+        } else {
+            verticalLength = firstPin.getContainer().getHeight() - firstPin.getY() +
+                    secondPin.getContainer().getHeight() - secondPin.getY();
+        }
+
+        return horizontalLength + verticalLength;
+    }
 }
 
