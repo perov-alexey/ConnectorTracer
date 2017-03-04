@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * This is strange old algorithm, I think I can develope this after all algorithms only
+ */
 public class FirstAlgorithm implements Algorithm {
 
     private Logger logger = LogManager.getLogger(FirstAlgorithm.class);
@@ -21,7 +24,7 @@ public class FirstAlgorithm implements Algorithm {
     private boolean debugEnabled;
 
     @Override
-    public List<Field> execute(Field field, boolean debugEnabled) {
+    public List<Field> execute(Field field, boolean debugEnabled, boolean requireBestSolution) {
         this.field = field;
         this.debugEnabled = debugEnabled;
         steps.add(new Cloner().deepClone(field));
