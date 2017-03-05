@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 public class BranchAndBoundAlgorithmTest {
 
     /**
-     * Test on top path override behavior. In this test algorithm must trace last link thrue the bottom channel.
+     * Test top path override behavior. In this test algorithm must trace last link through the bottom channel.
      */
 //    @Test
     public void testTopOverride() {

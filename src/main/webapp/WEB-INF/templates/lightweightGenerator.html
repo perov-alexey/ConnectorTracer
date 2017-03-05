@@ -18,6 +18,9 @@
         <label>
             Amount of pins row: <input ng-model="pinsRowsAmount">
         </label>
+        <label>
+            Find best solution <input type="checkbox" ng-model="requireBestSolution">
+        </label>
         <div>
             <button ng-click="generateField()"
                     ng-disabled="connectorsAmount < 3 || linksAmount < 1 || !pinsAmount || pinsRowsAmount < 1">Generate Field</button>
