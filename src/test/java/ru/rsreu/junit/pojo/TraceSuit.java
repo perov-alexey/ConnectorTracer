@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 public class TraceSuit {
 
     /**
-     * Test trace length calculation function
+     * Test trace length calculation functional
      */
     @Test
     public void testLengthCalculation() {

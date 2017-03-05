@@ -10,20 +10,6 @@ import java.util.List;
 
 public class FieldHelper {
 
-    public static List<Connector> getConnectorsBetween(Field field, Connector firstConnector, Connector secondConnector) {
-        //TODO Check and correct connector's position?
-        //TODO Field move to dependencies.
-
-        List<Connector> result = new ArrayList<Connector>();
-
-        for (Connector connector : field.getConnectors()) {
-            if ((connector.getX() > firstConnector.getX()) && (connector.getX() < secondConnector.getX())) {
-                result.add(connector);
-            }
-        }
-        return result;
-    }
-
     public static void prepareLinks(Field field) {
         List<Link> links = field.getLinks();
         List<Link> invalidLinks = new ArrayList<Link>();

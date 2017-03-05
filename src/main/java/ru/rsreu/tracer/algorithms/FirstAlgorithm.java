@@ -132,7 +132,7 @@ public class FirstAlgorithm implements Algorithm {
     }
 
     private void putLinkToField(Link link, List<Trace> traces) throws Exception {
-        List<Connector> betweenConnectors = FieldHelper.getConnectorsBetween(field, link.getFirstPin().getContainer(), link.getSecondPin().getContainer());
+        List<Connector> betweenConnectors = field.getConnectorsBetween(link.getFirstPin().getContainer(), link.getSecondPin().getContainer());
         if (!isPathOverloaded(betweenConnectors, true)) {
             traces.add(traceLink(betweenConnectors, link, true));
             updateFieldTraces(field, traces);

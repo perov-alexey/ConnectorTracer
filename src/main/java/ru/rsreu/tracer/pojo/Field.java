@@ -35,11 +35,10 @@ public class Field {
      * @return Created trace
      */
     public Trace traceLink(Link link, boolean isTopPath) {
-
-        //TODO Need unit test for this method
-
         List<Channel> path = new ArrayList<Channel>();
-        for (Connector connector : connectors) {
+        List<Connector> pathConnectors = getConnectorsBetween(link.getFirstPin().getContainer(),
+                link.getSecondPin().getContainer());
+        for (Connector connector : pathConnectors) {
             Channel channel = isTopPath ? connector.getTopChannel() : connector.getBottomChannel();
             channel.setOccupancy(channel.getOccupancy() + 1);
             path.add(channel);
@@ -47,6 +46,23 @@ public class Field {
         Trace trace = new Trace(path, link);
         this.getTraces().add(trace);
         return trace;
+    }
+
+    /**
+     * Find connectors placed between passed connectors
+     * @param firstConnector Left bound connector
+     * @param secondConnector Right bound connector
+     * @return Connectors placed between passed connectors
+     */
+    public List<Connector> getConnectorsBetween(Connector firstConnector, Connector secondConnector) {
+        List<Connector> result = new ArrayList<Connector>();
+
+        for (Connector connector : connectors) {
+            if ((connector.getX() > firstConnector.getX()) && (connector.getX() < secondConnector.getX())) {
+                result.add(connector);
+            }
+        }
+        return result;
     }
 
     public List<Connector> getConnectors() {
