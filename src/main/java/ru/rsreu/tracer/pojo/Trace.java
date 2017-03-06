@@ -12,6 +12,15 @@ public class Trace {
 
     private List<Channel> path = new ArrayList<Channel>();
     private Link link;
+    private boolean fixed;
+
+    public boolean isFixed() {
+        return fixed;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
+    }
 
     public List<Channel> getPath() {
         return path;
@@ -36,16 +45,16 @@ public class Trace {
 
         Trace trace = (Trace) o;
 
-        if (link != null ? !link.equals(trace.link) : trace.link != null) return false;
+        if (fixed != trace.fixed) return false;
         if (path != null ? !path.equals(trace.path) : trace.path != null) return false;
-
-        return true;
+        return link != null ? link.equals(trace.link) : trace.link == null;
     }
 
     @Override
     public int hashCode() {
         int result = path != null ? path.hashCode() : 0;
         result = 31 * result + (link != null ? link.hashCode() : 0);
+        result = 31 * result + (fixed ? 1 : 0);
         return result;
     }
 
@@ -54,6 +63,7 @@ public class Trace {
         return "Trace{" +
                 "path=" + path +
                 ", link=" + link +
+                ", fixed=" + fixed +
                 '}';
     }
 
