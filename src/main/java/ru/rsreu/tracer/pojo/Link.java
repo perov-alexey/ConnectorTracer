@@ -12,6 +12,35 @@ public class Link {
     private Pin firstPin;
     private Pin secondPin;
 
+    /**
+     * Calculate link length
+     * @param isTopPath Link path
+     * @return Link's length if they were traced by top or bottom (depends on isTopPath flag)
+     */
+    public int getLength(boolean isTopPath) {
+        Pin firstPin = this.getFirstPin();
+        Pin secondPin = this.getSecondPin();
+
+        // If first pin placed righter, then switch firstPin and secondPin
+        if (firstPin.getContainer().getX() > secondPin.getContainer().getX()) {
+            Pin tempPin = firstPin;
+            firstPin = secondPin;
+            secondPin = tempPin;
+        }
+
+        int horizontalLength = secondPin.getContainer().getX() + secondPin.getX() -
+                firstPin.getContainer().getX() - firstPin.getX();
+        int verticalLength;
+        if (isTopPath) {
+            verticalLength = firstPin.getY() + secondPin.getY();
+        } else {
+            verticalLength = firstPin.getContainer().getHeight() - firstPin.getY() +
+                    secondPin.getContainer().getHeight() - secondPin.getY();
+        }
+
+        return horizontalLength + verticalLength;
+    }
+
     public Pin getFirstPin() {
         return firstPin;
     }
