@@ -65,6 +65,18 @@ public class Field {
         return result;
     }
 
+    /**
+     * Check field if it acceptable solution, i.e. all field channels is not overloaded.
+     * @return True if field is acceptable solution.
+     */
+    public boolean isAcceptableField() {
+        for (Connector connector : connectors) {
+            if (connector.getTopChannel().isOverloaded() || connector.getBottomChannel().isOverloaded())
+                return false;
+        }
+        return true;
+    }
+
     public List<Connector> getConnectors() {
         return connectors;
     }

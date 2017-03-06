@@ -43,7 +43,7 @@ public class BruteForceAlgorithm implements Algorithm {
             }
             field.setTraces(traces);
 
-            if (!isChannelsOverloaded(field.getConnectors())) {
+            if (field.isAcceptableField()) {
                 logger.debug("Mask {} is feasible solution", new String(traceMask));
                 if (requireBestSolution) {
                     logger.debug("Require best solution, continue with next trace mask");
@@ -78,14 +78,5 @@ public class BruteForceAlgorithm implements Algorithm {
         char[] parsedNumber = Long.toBinaryString(number).toCharArray();
         System.arraycopy(parsedNumber, 0, traceMask, maskSize - parsedNumber.length, parsedNumber.length);
         return traceMask;
-    }
-
-    private boolean isChannelsOverloaded(List<Connector> connectors) {
-        //TODO To Field.isAcceptable()
-        for (Connector connector : connectors) {
-            if (connector.getTopChannel().isOverloaded() || connector.getBottomChannel().isOverloaded())
-                return true;
-        }
-        return false;
     }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 import ru.rsreu.junit.utils.FixtureProvider;
 import ru.rsreu.tracer.pojo.Connector;
 import ru.rsreu.tracer.pojo.Field;
+import ru.rsreu.tracer.pojo.Link;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test suit for Field class
@@ -76,6 +79,25 @@ public class FieldSuit {
         List<Connector> betweenConnectors = fixture.getConnectorsBetween(connectors.get(0), connectors.get(3));
 
         assertEquals("Method return wrong connectors", Arrays.asList(connectors.get(1), connectors.get(2)), betweenConnectors);
+    }
+
+    /**
+     * Test field's functionality of solution's acceptance.
+     */
+    @Test
+    public void testFieldAcceptableChecking() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        for (Link link : field.getLinks()) {
+            field.traceLink(link, true);
+        }
+        assertFalse("This field is not acceptable solution", field.isAcceptableField());
+
+        field = FixtureProvider.getTopChannelOverloadedField();
+        field.traceLink(field.getLinks().get(0), true);
+        field.traceLink(field.getLinks().get(1), true);
+        field.traceLink(field.getLinks().get(2), true);
+        field.traceLink(field.getLinks().get(3), false);
+        assertTrue("This field is acceptable solution", field.isAcceptableField());
     }
 
 }
