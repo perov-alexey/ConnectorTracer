@@ -6,6 +6,7 @@ import ru.rsreu.junit.utils.FixtureProvider;
 import ru.rsreu.tracer.pojo.Connector;
 import ru.rsreu.tracer.pojo.Field;
 import ru.rsreu.tracer.pojo.Link;
+import ru.rsreu.tracer.pojo.Trace;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,6 +99,22 @@ public class FieldSuit {
         field.traceLink(field.getLinks().get(2), true);
         field.traceLink(field.getLinks().get(3), false);
         assertTrue("This field is acceptable solution", field.isAcceptableField());
+    }
+
+    /**
+     * Test field's retrace functionality
+     */
+    @Test
+    public void testRetrace() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        Trace trace = field.traceLink(field.getLinks().get(0), true);
+
+        assertTrue("Trace must be traced by top", trace.getPath().get(0).isTop());
+
+        trace = field.retrace(trace, false);
+
+        assertEquals("Wrong amount of traced links", 1, field.getTraces().size());
+        assertFalse("Trace must be traced by bottom", trace.getPath().get(0).isTop());
     }
 
 }

@@ -49,6 +49,18 @@ public class Field {
     }
 
     /**
+     * Retrace trace
+     * @param trace Trace which must be retraced
+     * @param isTopPath New trace path orientation
+     * @return Retraced trace
+     */
+    public Trace retrace(Trace trace, boolean isTopPath) {
+        Link link = trace.getLink();
+        this.getTraces().remove(this.getTraces().indexOf(trace));
+        return this.traceLink(link, isTopPath);
+    }
+
+    /**
      * Find connectors placed between passed connectors
      * @param firstConnector Left bound connector
      * @param secondConnector Right bound connector
