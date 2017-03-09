@@ -24,7 +24,7 @@ public class BruteForceAlgorithmTestSuit implements CommonAlgorithmTestSuit {
         List<Field> solutions = algorithm.execute(fixture, false, true);
 
         assertEquals("Wrong number of best solutions", 1, solutions.size());
-        assertEquals("Found not best solution", 2090, solutions.get(0).getRating());
+        assertEquals("Found not best solution", 1430, solutions.get(0).getRating());
     }
 
     @Override

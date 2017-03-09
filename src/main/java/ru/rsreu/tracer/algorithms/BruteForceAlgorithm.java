@@ -7,6 +7,7 @@ import ru.rsreu.tracer.pojo.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,7 @@ public class BruteForceAlgorithm implements Algorithm {
         }
 
         if (requireBestSolution && !solutions.isEmpty()) {
-            solutions.sort((Field firstField, Field secondField) -> secondField.getRating() - firstField.getRating());
+            solutions.sort(Comparator.comparingInt(Field::getRating));
             int bestSolutionRating = solutions.get(0).getRating();
             solutions = solutions.stream()
                     .filter((solution) -> solution.getRating() == bestSolutionRating).collect(Collectors.toList());
