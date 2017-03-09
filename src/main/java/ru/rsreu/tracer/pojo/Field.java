@@ -56,6 +56,9 @@ public class Field {
      */
     public Trace retrace(Trace trace, boolean isTopPath) {
         Link link = trace.getLink();
+        for (Channel channel : trace.getPath()) {
+            channel.setOccupancy(channel.getOccupancy() - 1);
+        }
         this.getTraces().remove(this.getTraces().indexOf(trace));
         return this.traceLink(link, isTopPath);
     }

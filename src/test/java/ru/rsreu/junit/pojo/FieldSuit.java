@@ -110,11 +110,15 @@ public class FieldSuit {
         Trace trace = field.traceLink(field.getLinks().get(0), true);
 
         assertTrue("Trace must be traced by top", trace.getPath().get(0).isTop());
+        assertEquals("Top channel occupancy must be 1", 1,
+                field.getConnectors().get(1).getTopChannel().getOccupancy());
 
         trace = field.retrace(trace, false);
 
         assertEquals("Wrong amount of traced links", 1, field.getTraces().size());
         assertFalse("Trace must be traced by bottom", trace.getPath().get(0).isTop());
+        assertEquals("Released channels must decrease occupancy value", 0,
+                field.getConnectors().get(1).getTopChannel().getOccupancy());
     }
 
 }
