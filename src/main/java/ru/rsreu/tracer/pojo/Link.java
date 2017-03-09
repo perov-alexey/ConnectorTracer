@@ -57,8 +57,6 @@ public class Link {
         this.secondPin = secondPin;
     }
 
-
-    //TODO Try to minimize it.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,27 +64,8 @@ public class Link {
 
         Link link = (Link) o;
 
-        if (firstPin != null) {
-            if (!firstPin.equals(link.firstPin)) {
-                if (!firstPin.equals(link.secondPin) || !secondPin.equals(link.firstPin)) {
-                    return false;
-                }
-            } else if (link.firstPin != null){
-                return false;
-            }
-        }
-
-        if (secondPin != null) {
-            if (!secondPin.equals(link.secondPin)) {
-                if (!secondPin.equals(link.firstPin) || !firstPin.equals(link.secondPin)) {
-                    return false;
-                }
-            } else if (link.secondPin != null){
-                return false;
-            }
-        }
-
-        return true;
+        if (firstPin != null ? !firstPin.equals(link.firstPin) : link.firstPin != null) return false;
+        return secondPin != null ? secondPin.equals(link.secondPin) : link.secondPin == null;
     }
 
     @Override
