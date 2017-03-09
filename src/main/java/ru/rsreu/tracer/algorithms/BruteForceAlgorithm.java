@@ -65,7 +65,6 @@ public class BruteForceAlgorithm implements Algorithm {
             logger.debug("Find {} best solutions, it's rating: {}", solutions.size(), bestSolutionRating);
         } else {
             logger.debug("Field doesn't have solutions");
-            solutions = Arrays.asList(originalField);
         }
 
         return solutions;
