@@ -27,7 +27,7 @@ public class BranchAndBoundAlgorithmTestSuit implements CommonAlgorithmTestSuit 
         for (Field solution : solutions) {
             assertTrue("Solution must be acceptable field", solution.isAcceptableField());
         }
-        assertEquals("Found not best solution", 2090, solutions.get(0).getRating());
+        assertEquals("Found not best solution", 1430, solutions.get(0).getRating());
     }
 
     @Override
