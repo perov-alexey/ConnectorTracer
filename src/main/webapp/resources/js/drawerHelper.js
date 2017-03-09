@@ -64,7 +64,7 @@ function DrawerHelper() {
     DrawerHelper.prototype.getConnectorByID = function(config, id) {
         var connectors = this.getConnectors(config);
         var selectedConnectors = $(connectors).filter(function(index) {
-            return connectors[index].x + "_" + connectors[index].y === id;
+            return connectors[index]['@id'] === id;
         });
         return selectedConnectors[0];
     };

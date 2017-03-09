@@ -1,10 +1,5 @@
 package ru.rsreu.tracer.pojo;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import ru.rsreu.tracer.customserializers.ConnectorCustomDeserializer;
-import ru.rsreu.tracer.customserializers.ConnectorCustomSerializer;
-
 public class Channel {
 
     public Channel(){}
@@ -21,8 +16,6 @@ public class Channel {
         this.isTop = isTop;
     }
 
-    @JsonDeserialize(using = ConnectorCustomDeserializer.class)
-    @JsonSerialize(using = ConnectorCustomSerializer.class)
     private Connector connector;
     private int occupancy;
     private int maxCapacity;

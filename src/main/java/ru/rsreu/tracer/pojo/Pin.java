@@ -1,10 +1,5 @@
 package ru.rsreu.tracer.pojo;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import ru.rsreu.tracer.customserializers.ConnectorCustomDeserializer;
-import ru.rsreu.tracer.customserializers.ConnectorCustomSerializer;
-
 public class Pin {
 
     public Pin() {
@@ -25,8 +20,6 @@ public class Pin {
     private int x;
     private int y;
 
-    @JsonDeserialize(using = ConnectorCustomDeserializer.class)
-    @JsonSerialize(using = ConnectorCustomSerializer.class)
     private Connector container;
 
     public int getX() {

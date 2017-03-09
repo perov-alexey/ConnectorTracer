@@ -30,10 +30,10 @@ function LightweightGenerator() {
             if (field.connectors.length > 0) {
                 var lastConnector = field.connectors[field.connectors.length - 1];
                 if (lastConnector.x + MAX_CONNECTOR_WIDTH + MAX_CONNECTOR_PADDING < CANVAS_WIDTH) {
-                    field.connectors.push(generator.generateConnector(lastConnector, pinsAmount, pinsRowsAmount));
+                    field.connectors.push(generator.generateConnector(i, lastConnector, pinsAmount, pinsRowsAmount));
                 }
             } else {
-                field.connectors.push(generator.generateConnector(null, pinsAmount, pinsRowsAmount));
+                field.connectors.push(generator.generateConnector(i, null, pinsAmount, pinsRowsAmount));
             }
         }
         for (var j = 0; j < linksAmount; j++) {
@@ -42,7 +42,7 @@ function LightweightGenerator() {
         return field;
     };
 
-    LightweightGenerator.prototype.generateConnector = function(lastConnector, pinsAmount, pinsRowsAmount) {
+    LightweightGenerator.prototype.generateConnector = function(index, lastConnector, pinsAmount, pinsRowsAmount) {
         var generator = this;
         var connectorPadding = FIRST_CONNECTOR_PADDING;
 
@@ -55,7 +55,8 @@ function LightweightGenerator() {
             y: generator._between(MIN_CONNECTOR_Y, MAX_CONNECTOR_Y),
             height: generator._between(MIN_CONNECTOR_HEIGHT, MAX_CONNECTOR_HEIGHT),
             width: generator._between(MIN_CONNECTOR_WIDTH, MAX_CONNECTOR_WIDTH),
-            pins: []
+            pins: [],
+            '@id': index
         };
 
         for (var i = 0; i < pinsAmount; i++) {
@@ -72,7 +73,7 @@ function LightweightGenerator() {
         return {
             x: generator._between(1, pinsRowsAmount) * (connector.width / (pinsRowsAmount + 1)),
             y: generator._between(0, connector.height),
-            container: connector.x + "_" + connector.y
+            container: connector['@id']
         };
     };
 
@@ -81,7 +82,7 @@ function LightweightGenerator() {
         return {
             occupancy: 0,
             maxCapacity: generator._between(MIN_CHANNEL_CAPACITY, MAX_CHANNEL_CAPACITY),
-            connector: connector.x + "_" + connector.y,
+            connector: connector['@id'],
             top: top
         };
     };
