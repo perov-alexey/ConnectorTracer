@@ -2,6 +2,7 @@ package ru.rsreu.junit.utils;
 
 import ru.rsreu.tracer.pojo.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -186,6 +187,55 @@ public class FixtureProvider {
     public static Trace getBottomTrace() {
         Field simpleField = getTopChannelOverloadedField();
         return simpleField.traceLink(simpleField.getLinks().get(0), false);
+    }
+
+    /**
+     * Create field for branch and bound handle calculation. I'm already build tree on paper for it field and I need it
+     * only for using in diploma work
+     * @return Modified top channel overloaded field
+     */
+    public static Field getFieldForBranchAndBoundCheck() {
+        Field field = getTopChannelOverloadedField();
+
+        // Fifth connector
+        Pin fifthConnectorFirstPin = new Pin(50, 190);
+        List<Pin> fifthConnectorPins = Arrays.asList(fifthConnectorFirstPin);
+        Channel fifthConnectorTopChannel = new Channel(1, true);
+        Channel fifthConnectorBottomChannel = new Channel(1, false);
+
+        Connector fifthConnector = new Connector(490, 100, 200, 100, fifthConnectorPins, fifthConnectorTopChannel, fifthConnectorBottomChannel);
+
+        fifthConnectorFirstPin.setContainer(fifthConnector);
+        fifthConnectorTopChannel.setConnector(fifthConnector);
+        fifthConnectorBottomChannel.setConnector(fifthConnector);
+
+
+        // Add new pin in the first channel
+        Connector firstConnector = field.getConnectors().get(0);
+        Pin newPin = new Pin(50, 190, firstConnector);
+        ArrayList<Pin> pins = new ArrayList();
+        pins.addAll(firstConnector.getPins());
+        pins.add(newPin);
+
+        firstConnector.setPins(pins);
+
+        // Fifth link
+        Link newLink = new Link(newPin, fifthConnectorFirstPin);
+
+        ArrayList<Link> links = new ArrayList<>();
+        links.addAll(field.getLinks());
+        links.add(newLink);
+
+        field.setLinks(links);
+
+
+        ArrayList<Connector> cons = new ArrayList<>();
+        cons.addAll(field.getConnectors());
+        cons.add(firstConnector);
+
+        field.setConnectors(cons);
+
+        return field;
     }
 
 }

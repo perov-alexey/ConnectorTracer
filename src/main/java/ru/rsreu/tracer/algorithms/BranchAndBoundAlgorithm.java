@@ -68,7 +68,7 @@ public class BranchAndBoundAlgorithm implements Algorithm {
         bound.remove(bound.indexOf(peak));
         logger.debug("Parent peak was removed from bound");
 
-        bound.stream()
+        bound = bound.stream()
                 .sorted(Comparator.comparingLong(Field::getRating))
                 .collect(Collectors.toList());
     }
@@ -83,7 +83,7 @@ public class BranchAndBoundAlgorithm implements Algorithm {
         logger.debug("Try to find candidate to fix. Amount of traces: {}", field.getTraces().size());
         List<Trace> candidates = field.getTraces().stream()
                 .filter(trace -> !trace.isFixed())
-                .sorted(Comparator.comparingLong(this::getOverloadedChannelsCount))
+                .sorted(Comparator.comparingLong(this::getOverloadedChannelsCount).reversed())
                 .collect(Collectors.toList());
         if (candidates.isEmpty()) {
             logger.debug("Field haven't candidate traces, it will removed from bound");
@@ -95,7 +95,7 @@ public class BranchAndBoundAlgorithm implements Algorithm {
 
     private long getOverloadedChannelsCount(Trace trace) {
         return trace.getPath().stream()
-                .filter((channel) -> !channel.isOverloaded())
+                .filter(Channel::isOverloaded)
                 .count();
     }
 }
