@@ -24,7 +24,9 @@ public class BranchAndBoundAlgorithm implements Algorithm {
         findBestSolution(field);
         bound.add(new Cloner().deepClone(field));
         while (!bound.isEmpty() && !bound.get(0).isAcceptableField()) {
-            logger.debug("Solution was not find");
+            logger.debug("System parameters: Max heap size: {} bytes, Current heap size: {} bytes, Free heap size: {}",
+                    Runtime.getRuntime().maxMemory(), Runtime.getRuntime().totalMemory(), Runtime.getRuntime().freeMemory());
+            logger.debug("Bound size: {}", bound.size());
             evolveBranch(bound.get(0));
         }
         if (!bound.isEmpty()) {
@@ -68,9 +70,12 @@ public class BranchAndBoundAlgorithm implements Algorithm {
         bound.remove(bound.indexOf(peak));
         logger.debug("Parent peak was removed from bound");
 
+        //TODO Actually I think I need insert new pick in bound in right position and remove this sorting
+        logger.debug("Start sort bound list. Start time: {}", new Date());
         bound = bound.stream()
                 .sorted(Comparator.comparingLong(Field::getRating))
                 .collect(Collectors.toList());
+        logger.debug("Finish sort bound list. Finish time: {}", new Date());
     }
 
     private void findBestSolution(Field field) {
