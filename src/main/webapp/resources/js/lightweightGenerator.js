@@ -7,8 +7,8 @@ function LightweightGenerator() {
     var MIN_CONNECTOR_HEIGHT = 200;
     var MAX_CONNECTOR_HEIGHT = 200;
 
-    var MIN_CONNECTOR_WIDTH = 50;
-    var MAX_CONNECTOR_WIDTH = 150;
+    var MIN_CONNECTOR_WIDTH = 25;
+    var MAX_CONNECTOR_WIDTH = 75;
 
     var MIN_CONNECTOR_PADDING = 30;
     var MAX_CONNECTOR_PADDING = 50;
