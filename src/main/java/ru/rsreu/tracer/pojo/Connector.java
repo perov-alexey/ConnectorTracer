@@ -48,18 +48,11 @@ public class Connector {
 
     }
 
-    @Deprecated
     public Connector(int x, int y, int height, int width) {
         this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
-    }
-
-    @Deprecated
-    public Connector(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     public int getHeight() {
