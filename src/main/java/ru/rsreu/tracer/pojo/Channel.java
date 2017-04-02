@@ -9,7 +9,6 @@ public class Channel {
         this.isTop = isTop;
     }
 
-    @Deprecated
     public Channel(Connector connector, int maxCapacity, boolean isTop) {
         this.connector = connector;
         this.maxCapacity = maxCapacity;
