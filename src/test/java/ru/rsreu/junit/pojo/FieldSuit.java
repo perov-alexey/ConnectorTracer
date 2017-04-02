@@ -3,10 +3,7 @@ package ru.rsreu.junit.pojo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import ru.rsreu.junit.utils.FixtureProvider;
-import ru.rsreu.tracer.pojo.Connector;
-import ru.rsreu.tracer.pojo.Field;
-import ru.rsreu.tracer.pojo.Link;
-import ru.rsreu.tracer.pojo.Trace;
+import ru.rsreu.tracer.pojo.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,6 +75,19 @@ public class FieldSuit {
         List<Connector> connectors = fixture.getConnectors();
 
         List<Connector> betweenConnectors = fixture.getConnectorsBetween(connectors.get(0), connectors.get(3));
+
+        assertEquals("Method return wrong connectors", Arrays.asList(connectors.get(1), connectors.get(2)), betweenConnectors);
+    }
+
+    /**
+     * Test getting in-between connectors functional in situation when first connector placed righter then second connector
+     */
+    @Test
+    public void testGettingConnectorsWithNoOrderedLinks() {
+        Field fixture = FixtureProvider.getTopChannelOverloadedField();
+        List<Connector> connectors = fixture.getConnectors();
+
+        List<Connector> betweenConnectors = fixture.getConnectorsBetween(connectors.get(3), connectors.get(0));
 
         assertEquals("Method return wrong connectors", Arrays.asList(connectors.get(1), connectors.get(2)), betweenConnectors);
     }

@@ -72,6 +72,13 @@ public class Field {
     public List<Connector> getConnectorsBetween(Connector firstConnector, Connector secondConnector) {
         List<Connector> result = new ArrayList<Connector>();
 
+        // We need place connectors in LTR order
+        if (firstConnector.getX() > secondConnector.getX()) {
+            Connector tempConnector = firstConnector;
+            firstConnector = secondConnector;
+            secondConnector = tempConnector;
+        }
+
         for (Connector connector : connectors) {
             if ((connector.getX() > firstConnector.getX()) && (connector.getX() < secondConnector.getX())) {
                 result.add(connector);
