@@ -70,6 +70,58 @@ public class FieldGeneratorTestSuit {
     }
 
     /**
+     * This test checks field generator behavior about link generation. Early it never create link to last connector.
+     */
+    @Test
+    public void testAbilityToCreateFieldWithLinkToLastChannel() {
+        FieldGenerator generator = new FieldGenerator();
+        boolean isLinkToLastConnectorCreated = false;
+        int connectorsAmount = 4;
+
+        for (int i = 0; i < 1000; i++) {
+            Field field = generator.generateField(connectorsAmount, 3, 2,
+                    connectorsAmount * 2, 1, 4);
+            Connector lastConnector = field.getConnectors().get(field.getConnectors().size() - 1);
+            for (Link link : field.getLinks()) {
+                if (link.getFirstPin().getContainer().equals(lastConnector) || link.getSecondPin().getContainer().
+                        equals(lastConnector)) {
+                    isLinkToLastConnectorCreated = true;
+                    break;
+                }
+            }
+            if (isLinkToLastConnectorCreated) break;
+        }
+        assertTrue("Link never creates with last field connector", isLinkToLastConnectorCreated);
+    }
+
+    /**
+     * This test checks correctness of the capacity upper bound of the generated channel
+     */
+    @Test
+    public void testChannelCapacityUpperBoundCorrectness() {
+        FieldGenerator generator = new FieldGenerator();
+        boolean isUpperBoundPresent = false;
+        int upperBound = 2;
+        for (int i = 0; i < 1000; i++) {
+            if (generator.generateChannel(null, true, 0, upperBound).getMaxCapacity() == upperBound) {
+                isUpperBoundPresent = true;
+                break;
+            }
+        }
+        assertTrue("Channel upper bound is wrong", isUpperBoundPresent);
+    }
+
+    /**
+     * This test creates channel with constant capacity. Early it raise exception.
+     */
+    @Test
+    public void testChannelGenerationWithConstantCapacity() {
+        FieldGenerator generator = new FieldGenerator();
+        Channel channel = generator.generateChannel(null, true, 1, 1);
+        assertEquals("Generated channel have wrong capacity", 1, channel.getMaxCapacity());
+    }
+
+    /**
      * This test checks link generation correctness
      */
     @Test

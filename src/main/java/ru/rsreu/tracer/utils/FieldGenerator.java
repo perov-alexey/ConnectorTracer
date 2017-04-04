@@ -123,7 +123,7 @@ public class FieldGenerator {
      * @return Generated channel
      */
     public Channel generateChannel(Connector connector, boolean isTop, int minChannelCapacity, int maxChannelCapacity) {
-        return new Channel(connector, ThreadLocalRandom.current().nextInt(minChannelCapacity, maxChannelCapacity), isTop);
+        return new Channel(connector, ThreadLocalRandom.current().nextInt(minChannelCapacity, maxChannelCapacity + 1), isTop);
     }
 
     /**
