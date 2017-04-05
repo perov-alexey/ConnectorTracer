@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Test suit for Field class
  */
-public class FieldSuit {
+public class FieldTestSuit {
 
     /**
      * Test rating calculation field functional

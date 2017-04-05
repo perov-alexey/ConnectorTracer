@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test suit for Link class
  */
-public class LinkSuit {
+public class LinkTestSuit {
 
     /**
      * Test link length calculation functional

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test suit for Trace class
  */
-public class TraceSuit {
+public class TraceTestSuit {
 
     /**
      * Test trace length calculation functional
