@@ -19,7 +19,18 @@
             Amount of pins row: <input ng-model="pinsRowsAmount">
         </label>
         <label>
+            Algorithm type
+            <select ng-model="algorithmType">
+                <option value="BRUTE_FORCE">Brute force</option>
+                <option value="BRANCH_AND_BOUND">Branch and bound</option>
+                <option value="DYNAMIC_PROGRAMMING">Dynamic programming</option>
+            </select>
+        </label>
+        <label>
             Find best solution <input type="checkbox" ng-model="requireBestSolution">
+        </label>
+        <label>
+            Enable debug <input type="checkbox" ng-model="isDebugEnabled">
         </label>
         <div>
             <button ng-click="generateField()"
@@ -31,7 +42,6 @@
 
     <div>
         <button ng-click="traceField()" ng-disabled="!field">Trace field</button>
-        <button ng-click="traceFieldWithDebug()" ng-disabled="!field">Trace field in debug mode</button>
     </div>
 
     <script src="resources/js/lightweightGenerator.js"></script>

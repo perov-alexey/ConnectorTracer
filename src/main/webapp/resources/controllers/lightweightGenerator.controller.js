@@ -9,24 +9,16 @@ angular.module('tracer')
             $scope.pinsRowsAmount = 2;
             $scope.linksAmount = 200;
             $scope.requireBestSolution = true;
+            $scope.isDebugEnabled = false;
+            $scope.algorithmType = "BRANCH_AND_BOUND";
 
             $scope.traceField = function() {
                 var queryString = $httpParamSerializer({
-                    debugEnabled: false,
-                    requireBestSolution: $scope.requireBestSolution
+                    debugEnabled: $scope.isDebugEnabled,
+                    requireBestSolution: $scope.requireBestSolution,
+                    algorithmType: $scope.algorithmType
                 });
-                $http.post("field?" + queryString, $scope.field).then(function(response) {
-                    $rootScope.steps = response.data;
-                    location.hash = "#/viewer";
-                });
-            };
-
-            $scope.traceFieldWithDebug = function() {
-                var queryString = $httpParamSerializer({
-                    debugEnabled: true,
-                    requireBestSolution: $scope.requireBestSolution
-                });
-                $http.post("field?" + queryString, $scope.field).then(function(response) {
+                $http.post("traced?" + queryString, $scope.field).then(function(response) {
                     $rootScope.steps = response.data;
                     location.hash = "#/viewer";
                 });
