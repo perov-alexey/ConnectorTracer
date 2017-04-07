@@ -32,17 +32,17 @@ public class DynamicProgrammingAlgorithm implements Algorithm {
         List<Field> solutions = new LinkedList<>();
         solutions.add(field);
 
-        for (Link link : field.getLinks()) {
+        for (int i = 0; i < field.getLinks().size(); i++) {
             ListIterator<Field> iterator = solutions.listIterator();
             while (iterator.hasNext()) {
                 Field solution = iterator.next();
                 iterator.remove();
 
                 Field topFixedField = new Cloner().deepClone(solution);
-                topFixedField.traceLink(link, true);
+                topFixedField.traceLink(topFixedField.getLinks().get(i), true);
 
                 Field bottomFixedField = new Cloner().deepClone(solution);
-                bottomFixedField.traceLink(link, false);
+                bottomFixedField.traceLink(bottomFixedField.getLinks().get(i), false);
 
                 if (topFixedField.isAcceptableField()) iterator.add(topFixedField);
                 if (bottomFixedField.isAcceptableField()) iterator.add(bottomFixedField);
@@ -52,9 +52,14 @@ public class DynamicProgrammingAlgorithm implements Algorithm {
             }
         }
 
-        return solutions.stream()
-                .sorted(Comparator.comparingLong(Field::getRating))
-                .collect(Collectors.toList());
+        if (!solutions.isEmpty()) {
+            solutions = Arrays.asList(solutions.stream()
+                    .sorted(Comparator.comparingLong(Field::getRating))
+                    .findFirst()
+                    .get());
+        }
+
+        return solutions;
     }
 
 }
