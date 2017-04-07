@@ -24,10 +24,13 @@ import ru.rsreu.tracer.pojo.Field;
 
 import java.util.List;
 
+/**
+ * This tests check TracerAPI correctness
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("/config.xml")
-public class TracerControllerTest {
+public class TracerControllerTestSuit {
 
     @Autowired
     private WebApplicationContext wac;
@@ -39,6 +42,10 @@ public class TracerControllerTest {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
+    /**
+     * Test access to /traced controller and check it result
+     * @throws Exception When controller doesn't exist or unavailable
+     */
     @Test
     public void testTracerControllerAccess() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
