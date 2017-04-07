@@ -39,4 +39,13 @@ public class BranchAndBoundAlgorithmTestSuit implements CommonAlgorithmTestSuit 
 
         assertTrue("Algorithm must return empty solutions list if field is defective", solutions.isEmpty());
     }
+
+    @Override
+    @Test
+    public void testAmountOfTraces() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        Algorithm algorithm = new BranchAndBoundAlgorithm();
+        Field result = algorithm.execute(field, false, true).get(0);
+        assertEquals("Wrong amount of traces after tracing", result.getLinks().size(), result.getTraces().size());
+    }
 }

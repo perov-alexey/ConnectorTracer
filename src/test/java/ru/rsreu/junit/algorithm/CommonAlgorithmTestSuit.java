@@ -15,4 +15,8 @@ public interface CommonAlgorithmTestSuit {
      */
     void testUnresolvableField();
 
+    /**
+     * This test verify amount of traces after field tracing. By design, amount of traces must be equals amount of links.
+     */
+    void testAmountOfTraces();
 }

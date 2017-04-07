@@ -5,6 +5,7 @@ import ru.rsreu.junit.utils.FixtureProvider;
 import ru.rsreu.tracer.algorithms.Algorithm;
 import ru.rsreu.tracer.algorithms.DynamicProgrammingAlgorithm;
 import ru.rsreu.tracer.pojo.Field;
+import ru.rsreu.tracer.utils.FieldGenerator;
 
 import java.util.List;
 
@@ -37,6 +38,15 @@ public class DynamicProgrammingAlgorithmTestSuit implements CommonAlgorithmTestS
         List<Field> solutions = algorithm.execute(field, false, true);
 
         assertTrue("Algorithm must return empty solutions list if field is defective", solutions.isEmpty());
+    }
+
+    @Override
+    @Test
+    public void testAmountOfTraces() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        Algorithm algorithm = new DynamicProgrammingAlgorithm();
+        Field result = algorithm.execute(field, false, true).get(0);
+        assertEquals("Wrong amount of traces after tracing", result.getLinks().size(), result.getTraces().size());
     }
 
 }
