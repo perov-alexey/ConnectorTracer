@@ -6,32 +6,21 @@
     <link rel="stylesheet" href="resources/css/tracer.css"/>
 
     <div>
-        <label>
-            Amount of connectors: <input ng-model="connectorsAmount">
-        </label>
-        <label>
-            Amount of links: <input ng-model="linksAmount">
-        </label>
-        <label>
-            Amount of pins in connector: <input ng-model="pinsAmount">
-        </label>
-        <label>
-            Amount of pins row: <input ng-model="pinsRowsAmount">
-        </label>
-        <label>
-            Algorithm type
+        <p>Amount of connectors: <input ng-model="connectorsAmount"></p>
+        <p>Amount of links: <input ng-model="linksAmount"></p>
+        <p>Amount of pins in connector: <input ng-model="pinsAmount"></p>
+        <p>Amount of pins columns: <input ng-model="columnPinsAmount"></p>
+        <p>Minimal channel capacity: <input ng-model="minChannelCapacity"></p>
+        <p>Maximal channel capacity: <input ng-model="maxChannelCapacity"></p>
+        <p>Algorithm type
             <select ng-model="algorithmType">
                 <option value="BRUTE_FORCE">Brute force</option>
                 <option value="BRANCH_AND_BOUND">Branch and bound</option>
                 <option value="DYNAMIC_PROGRAMMING">Dynamic programming</option>
             </select>
-        </label>
-        <label>
-            Find best solution <input type="checkbox" ng-model="requireBestSolution">
-        </label>
-        <label>
-            Enable debug <input type="checkbox" ng-model="isDebugEnabled">
-        </label>
+        </p>
+        <p>Find best solution <input type="checkbox" ng-model="requireBestSolution"></p>
+        <p>Enable debug <input type="checkbox" ng-model="isDebugEnabled"></p>
         <div>
             <button ng-click="generateField()"
                     ng-disabled="connectorsAmount < 3 || linksAmount < 1 || !pinsAmount || pinsRowsAmount < 1">Generate Field</button>

@@ -6,6 +6,7 @@ import ru.rsreu.factory.AlgorithmTypes;
 import ru.rsreu.tracer.algorithms.Algorithm;
 import ru.rsreu.tracer.helpers.FieldHelper;
 import ru.rsreu.tracer.pojo.Field;
+import ru.rsreu.tracer.utils.FieldGenerator;
 
 import java.util.List;
 
@@ -30,6 +31,27 @@ public class TracerController {
         FieldHelper.prepareLinks(field);
         List<Field> steps = alg.execute(field, debugEnabled, requireBestSolution);
         return steps;
+    }
+
+    /**
+     * Generate field
+     * @param connectorsAmount Amount of connectors in generated field
+     * @param linksAmount Amount of links in generated field
+     * @param pinsAmount Amount of pins in each connector
+     * @param columnPinsAmount Amount of pin's columns in each connector
+     * @param minChannelCapacity Minimum capacity of the channels
+     * @param maxChannelCapacity Maximum capacity of the channels
+     * @return Generated field
+     */
+    @RequestMapping(value = "/field", method = RequestMethod.GET)
+    private @ResponseBody Field generateField(@RequestParam int connectorsAmount,
+                                              @RequestParam int linksAmount,
+                                              @RequestParam int pinsAmount,
+                                              @RequestParam int columnPinsAmount,
+                                              @RequestParam int minChannelCapacity,
+                                              @RequestParam int maxChannelCapacity) {
+        return new FieldGenerator().generateField(connectorsAmount, pinsAmount, columnPinsAmount, linksAmount,
+                minChannelCapacity, maxChannelCapacity);
     }
 
 }
