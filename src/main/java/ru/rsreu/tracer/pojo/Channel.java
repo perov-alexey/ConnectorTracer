@@ -1,5 +1,7 @@
 package ru.rsreu.tracer.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Channel {
 
     public Channel(){}
@@ -24,6 +26,7 @@ public class Channel {
      * Return true if channel is overloaded.
      * @return True if channel is overloaded.
      */
+    @JsonIgnore
     public boolean isOverloaded() {
         return occupancy > maxCapacity;
     }

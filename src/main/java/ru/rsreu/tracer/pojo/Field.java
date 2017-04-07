@@ -1,5 +1,7 @@
 package ru.rsreu.tracer.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class Field {
      * Calculate rating of field. Rating calculation based on total traces lengths.
      * @return Field rating
      */
+    @JsonIgnore
     public int getRating() {
         return this.traces.stream()
                 .map((trace) -> trace.getLength())
@@ -91,6 +94,7 @@ public class Field {
      * Check field if it acceptable solution, i.e. all field channels is not overloaded.
      * @return True if field is acceptable solution.
      */
+    @JsonIgnore
     public boolean isAcceptableField() {
         for (Connector connector : connectors) {
             if (connector.getTopChannel().isOverloaded() || connector.getBottomChannel().isOverloaded())

@@ -1,9 +1,16 @@
 package ru.rsreu.tracer.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Trace {
+
+    /**
+     * Default constructor
+     */
+    public Trace() {}
 
     public Trace(List<Channel> path, Link link) {
         this.path = path;
@@ -71,6 +78,7 @@ public class Trace {
      * Calculate trace length.
      * @return Trace length
      */
+    @JsonIgnore
     public int getLength() {
         return this.getLink().getLength(this.getPath().get(0).isTop());
     }
