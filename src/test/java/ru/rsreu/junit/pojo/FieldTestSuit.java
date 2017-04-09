@@ -2,7 +2,7 @@ package ru.rsreu.junit.pojo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import ru.rsreu.junit.utils.FixtureProvider;
+import ru.rsreu.junit.FixtureProvider;
 import ru.rsreu.tracer.pojo.*;
 
 import java.io.File;

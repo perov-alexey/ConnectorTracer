@@ -1,4 +1,4 @@
-package ru.rsreu.junit.utils;
+package ru.rsreu.junit;
 
 import ru.rsreu.tracer.pojo.*;
 

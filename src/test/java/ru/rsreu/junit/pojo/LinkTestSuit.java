@@ -1,7 +1,7 @@
 package ru.rsreu.junit.pojo;
 
 import org.junit.Test;
-import ru.rsreu.junit.utils.FixtureProvider;
+import ru.rsreu.junit.FixtureProvider;
 import ru.rsreu.tracer.pojo.Link;
 
 import static org.junit.Assert.assertEquals;

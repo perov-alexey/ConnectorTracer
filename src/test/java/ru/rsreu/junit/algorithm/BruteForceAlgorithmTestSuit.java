@@ -1,7 +1,7 @@
 package ru.rsreu.junit.algorithm;
 
 import org.junit.Test;
-import ru.rsreu.junit.utils.FixtureProvider;
+import ru.rsreu.junit.FixtureProvider;
 import ru.rsreu.tracer.algorithms.Algorithm;
 import ru.rsreu.tracer.algorithms.BruteForceAlgorithm;
 import ru.rsreu.tracer.pojo.Field;

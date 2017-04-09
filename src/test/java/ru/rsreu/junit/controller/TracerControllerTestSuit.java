@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import ru.rsreu.junit.utils.FixtureProvider;
+import ru.rsreu.junit.FixtureProvider;
 import ru.rsreu.tracer.algorithms.BranchAndBoundAlgorithm;
 import ru.rsreu.tracer.pojo.Field;
 
