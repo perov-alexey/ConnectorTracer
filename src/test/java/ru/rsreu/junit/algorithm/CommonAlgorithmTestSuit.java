@@ -19,4 +19,9 @@ public interface CommonAlgorithmTestSuit {
      * This test verify amount of traces after field tracing. By design, amount of traces must be equals amount of links.
      */
     void testAmountOfTraces();
+
+    /**
+     * This test verify algorithm behavior on repeatable algorithm execution. Algorithm must be stateless.
+     */
+    void testAlgorithmStateClearance();
 }

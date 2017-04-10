@@ -18,6 +18,9 @@ public class BranchAndBoundAlgorithm implements Algorithm {
 
     @Override
     public List<Field> execute(Field field, boolean debugEnabled, boolean requireBestSolution) {
+        // Support stateless of the algorithm, see testAlgorithmStateClearance for more information
+        bound = new LinkedList<>();
+
         List<Field> solutions = new ArrayList<>();
         logger.debug("Start execute branch and bound algorithm");
         logger.debug("Start time: {}", new Date());

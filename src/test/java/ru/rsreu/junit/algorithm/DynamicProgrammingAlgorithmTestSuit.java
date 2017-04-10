@@ -48,4 +48,18 @@ public class DynamicProgrammingAlgorithmTestSuit implements CommonAlgorithmTestS
         assertEquals("Wrong amount of traces after tracing", result.getLinks().size(), result.getTraces().size());
     }
 
+    @Override
+    @Test
+    public void testAlgorithmStateClearance() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        DynamicProgrammingAlgorithm algorithm = new DynamicProgrammingAlgorithm();
+        List<Field> solution = algorithm.execute(field, false, true);
+        assertEquals("Wrong amount of solutions", 1, solution.size());
+
+        Field defectiveField = FixtureProvider.getDefectiveField();
+        solution = algorithm.execute(defectiveField, false, true);
+        assertEquals("Founded solution for defective field after algorithm execution",
+                0, solution.size());
+    }
+
 }

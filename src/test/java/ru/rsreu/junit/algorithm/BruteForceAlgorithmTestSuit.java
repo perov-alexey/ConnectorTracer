@@ -45,4 +45,18 @@ public class BruteForceAlgorithmTestSuit implements CommonAlgorithmTestSuit {
         Field result = algorithm.execute(field, false, true).get(0);
         assertEquals("Wrong amount of traces after tracing", result.getLinks().size(), result.getTraces().size());
     }
+
+    @Override
+    @Test
+    public void testAlgorithmStateClearance() {
+        Field field = FixtureProvider.getTopChannelOverloadedField();
+        BruteForceAlgorithm algorithm = new BruteForceAlgorithm();
+        List<Field> solution = algorithm.execute(field, false, true);
+        assertEquals("Wrong amount of solutions", 1, solution.size());
+
+        Field defectiveField = FixtureProvider.getDefectiveField();
+        solution = algorithm.execute(defectiveField, false, true);
+        assertEquals("Founded solution for defective field after algorithm execution",
+                0, solution.size());
+    }
 }
