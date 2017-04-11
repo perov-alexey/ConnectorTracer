@@ -4,6 +4,14 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
         </Console>
+        <!-- I need to use placeholders for log folder path -->
+        <RollingFile name="PerformanceLogAppender" fileName="d:/logs/performance/results.log"
+                     filePattern="d:/logs/performance/results-%d{yyyy-MM-dd-hh-mm-ss}_%i.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n"/>
+            <Policies>
+                <OnStartupTriggeringPolicy />
+            </Policies>
+        </RollingFile>
     </Appenders>
     <Loggers>
         <Root level="ERROR">
@@ -11,6 +19,9 @@
         </Root>
         <Logger name="ru.rsreu" level="ALL" additivity="false">
             <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="ru.rsreu.junit.performance" level="ALL" additivity="false">
+            <AppenderRef ref="PerformanceLogAppender"/>
         </Logger>
     </Loggers>
 </Configuration>
