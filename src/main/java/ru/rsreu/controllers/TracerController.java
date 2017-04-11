@@ -26,7 +26,7 @@ public class TracerController {
     private @ResponseBody List<Field> traceField(@RequestBody Field field,
                                                  @RequestParam(required = false, defaultValue = "false") boolean debugEnabled,
                                                  @RequestParam(required = false, defaultValue = "true") boolean requireBestSolution,
-                                                 @RequestParam String algorithmType) {
+                                                 @RequestParam String algorithmType) throws InterruptedException {
         Algorithm alg = AlgorithmFactory.createAlgorithm(AlgorithmTypes.valueOf(algorithmType));
         FieldHelper.prepareLinks(field);
         List<Field> steps = alg.execute(field, debugEnabled, requireBestSolution);

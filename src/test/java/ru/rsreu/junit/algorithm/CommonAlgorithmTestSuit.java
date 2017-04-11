@@ -8,20 +8,20 @@ public interface CommonAlgorithmTestSuit {
     /**
      * This test verify algorithm on channel override behavior and rating of the best solution.
      */
-    void testWithOverloadedChannel();
+    void testWithOverloadedChannel() throws InterruptedException;
 
     /**
      * This test verify algorithm behavior with defective field.
      */
-    void testUnresolvableField();
+    void testUnresolvableField() throws InterruptedException;
 
     /**
      * This test verify amount of traces after field tracing. By design, amount of traces must be equals amount of links.
      */
-    void testAmountOfTraces();
+    void testAmountOfTraces() throws InterruptedException;
 
     /**
      * This test verify algorithm behavior on repeatable algorithm execution. Algorithm must be stateless.
      */
-    void testAlgorithmStateClearance();
+    void testAlgorithmStateClearance() throws InterruptedException;
 }

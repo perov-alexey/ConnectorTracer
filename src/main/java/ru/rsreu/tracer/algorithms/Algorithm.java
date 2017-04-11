@@ -15,6 +15,6 @@ public interface Algorithm {
      *                            significantly increase algorithm execution time and required memory.
      * @return List with solution (field with traced links).
      */
-    List<Field> execute(Field field, boolean debugEnabled, boolean requireBestSolution);
+    List<Field> execute(Field field, boolean debugEnabled, boolean requireBestSolution) throws InterruptedException;
 
 }

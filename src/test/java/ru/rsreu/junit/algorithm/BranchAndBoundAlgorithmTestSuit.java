@@ -19,7 +19,7 @@ public class BranchAndBoundAlgorithmTestSuit implements CommonAlgorithmTestSuit 
 
     @Override
     @Test
-    public void testWithOverloadedChannel() {
+    public void testWithOverloadedChannel() throws InterruptedException {
         Field field = FixtureProvider.getTopChannelOverloadedField();
         Algorithm algorithm = new BranchAndBoundAlgorithm();
         List<Field> solutions = algorithm.execute(field, false, true);
@@ -32,7 +32,7 @@ public class BranchAndBoundAlgorithmTestSuit implements CommonAlgorithmTestSuit 
 
     @Override
     @Test
-    public void testUnresolvableField() {
+    public void testUnresolvableField() throws InterruptedException {
         Field field = FixtureProvider.getDefectiveField();
         Algorithm algorithm = new BranchAndBoundAlgorithm();
         List<Field> solutions = algorithm.execute(field, false, true);
@@ -42,7 +42,7 @@ public class BranchAndBoundAlgorithmTestSuit implements CommonAlgorithmTestSuit 
 
     @Override
     @Test
-    public void testAmountOfTraces() {
+    public void testAmountOfTraces() throws InterruptedException {
         Field field = FixtureProvider.getTopChannelOverloadedField();
         Algorithm algorithm = new BranchAndBoundAlgorithm();
         Field result = algorithm.execute(field, false, true).get(0);
