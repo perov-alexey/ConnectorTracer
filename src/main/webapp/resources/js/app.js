@@ -1,13 +1,15 @@
-angular.module('tracer', ['ngRoute', 'ngMaterial']).config([
+angular.module('tracer', ['ngRoute', 'ngMaterial', 'ngSanitize']).config([
         '$routeProvider', '$mdThemingProvider',
         function($routeProvider, $mdThemingProvider){
             $mdThemingProvider.theme('default')
                 .primaryPalette('cyan', {
                     'default': '500',
-                    'hue-1': '50'
                 })
                 .accentPalette('cyan', {
                     'default': '200'
+                })
+                .backgroundPalette('grey', {
+                    'default': '200',
                 });
 
             $routeProvider

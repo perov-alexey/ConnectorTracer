@@ -1,28 +1,28 @@
-.table-header-title {
-    font-size: 30px;
-    vertical-align: middle;
-    color: white;;
+* {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
 }
 
-.table-header-container {
-    float: left;
-    width: 100%;
-    background-color: #00BCD4;
+.table-container {
+    margin: 20px;
 }
 
-.right-align {
-    float: right;
+.table-title {
+    padding: 10px;
 }
 
-.setting-table {
-    table-layout: fixed;
+.table {
+    padding: 10px;
 }
 
-.setting-table tr, .setting-table td {
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.text-center-align {
+.table-header-cell {
     text-align: center;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.table-row {
+    padding: 5px 0px 5px 0px;
+}
+
+.flex-offset-1 {
+    margin-left: 1%;
 }
