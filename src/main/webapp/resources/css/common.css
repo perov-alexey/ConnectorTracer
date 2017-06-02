@@ -1,0 +1,28 @@
+.table-header-title {
+    font-size: 30px;
+    vertical-align: middle;
+    color: white;;
+}
+
+.table-header-container {
+    float: left;
+    width: 100%;
+    background-color: #00BCD4;
+}
+
+.right-align {
+    float: right;
+}
+
+.setting-table {
+    table-layout: fixed;
+}
+
+.setting-table tr, .setting-table td {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.text-center-align {
+    text-align: center;
+}

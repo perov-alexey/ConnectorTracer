@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head></head>
+<body>
+    <md-content>
+        <div>
+            <div class="table-header-container">
+                <span class="table-header-title">Коннекторы:</span>
+                <md-button ng-click="addConnector()" class="md-fab right-align">
+                    <md-icon md-svg-src="resources/images/icons/plus.svg"></md-icon>
+                </md-button>
+            </div>
+            <table class="setting-table">
+                <thead>
+                <tr>
+                    <th>Номер коннектора</th>
+                    <th>Ширина коннектора</th>
+                    <th>Положение коннектора по оси X</th>
+                    <th>Количество выводов коннектора</th>
+                    <th>Объем верхнего канала</th>
+                    <th>Объем нижнего канала</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="connector in connectors">
+                    <td><p class="text-center-align">{{$index + 1}}</p></td>
+                    <td>
+                        <md-slider-container>
+                            <md-slider flex min="0" max="200" ng-model="connector.width">
+                            </md-slider>
+                            <md-input-container>
+                                <input flex min="0" max="200" type="number" ng-model="connector.width">
+                            </md-input-container>
+                        </md-slider-container>
+                    </td>
+                    <td>
+                        <md-slider-container>
+                            <md-slider flex min="0" max="300" ng-model="connector.x">
+                            </md-slider>
+                            <md-input-container>
+                                <input flex min="0" max="300" type="number" ng-model="connector.x">
+                            </md-input-container>
+                        </md-slider-container>
+                    </td>
+                    <td>
+                        <md-slider-container>
+                            <md-slider flex min="0" max="20" ng-model="connector.pinsAmount">
+                            </md-slider>
+                            <md-input-container>
+                                <input flex min="0" max="20" type="number" ng-model="connector.pinsAmount">
+                            </md-input-container>
+                        </md-slider-container>
+                    </td>
+                    <td>
+                        <md-slider-container>
+                            <md-slider flex min="0" ng-model="connector.topChannelCapacity">
+                            </md-slider>
+                            <md-input-container>
+                                <input flex min="0" type="number" ng-model="connector.topChannelCapacity">
+                            </md-input-container>
+                        </md-slider-container>
+                    </td>
+                    <td>
+                        <md-slider-container>
+                            <md-slider flex min="0" ng-model="connector.bottomChannelCapacity">
+                            </md-slider>
+                            <md-input-container>
+                                <input flex min="0" type="number" ng-model="connector.bottomChannelCapacity">
+                            </md-input-container>
+                        </md-slider-container>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </md-content>
+    
+    <h3>Связи:</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер связи</th>
+                <th>Номер первого коннектора</th>
+                <th>Номер вывода первого коннектора</th>
+                <th>Номер второго коннектора</th>
+                <th>Номер вывода второго коннектора</th>
+                <th>Объем проводника</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="link in links">
+               <td><input readonly type="text" value="{{$index + 1}}"></td>
+               <td>
+                    <select>
+                     
+                    </select>
+                   <input type="select" ng-model="connector.width" min="0"></td>
+               <td><input type="number" ng-model="connector.x" min="0"></td>
+               <td><input type="number" ng-model="connector.pinsAmount" min="0"></td>
+               <td><input type="number" ng-model="connector.topChannelCapacity" min="0"></td>
+               <td><input type="number" ng-model="connector.bottomChannelCapacity" min="0"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button ng-click="addConnector()">Добавить коннектор</button>
+    </div>
+    <div>
+        <button ng-click="traceField()">Решить задачу</button>
+    </div>
+    <textarea style="width: 500px; height: 300px;" ng-model="field"></textarea>
+    
+    <!-- <script src="resources/js/lightweightGenerator.js"></script> -->
+</body>
+</html>
