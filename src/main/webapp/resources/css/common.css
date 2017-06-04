@@ -26,3 +26,11 @@
 .flex-offset-1 {
     margin-left: 1%;
 }
+
+.wide {
+    width: 99%;
+}
+
+.tall {
+    height: 400px;
+}

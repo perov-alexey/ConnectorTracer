@@ -26,7 +26,7 @@ angular.module('tracer', ['ngRoute', 'ngMaterial', 'ngSanitize']).config([
                     controller: 'viewer.controller'
                 })
                 .otherwise({
-                    redirectTo: '/tracer'
+                    redirectTo: '/inputs'
                 });
         }
     ]);

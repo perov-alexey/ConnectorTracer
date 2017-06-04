@@ -4,9 +4,10 @@ angular.module('tracer')
     "$scope", "$mdDialog", function($scope, $mdDialog) {
 
         $scope.algorithms = [
-            { title: "Метод ветвей и границ", name: "branchAndBoundMethod" },
-            { title: "Метод динамического программирования", name: "dynamicProgrammingMethod" }
-        ]
+            { title: "Метод полного перебора", name: "BRUTE_FORCE" },
+            { title: "Метод ветвей и границ", name: "BRANCH_AND_BOUND" },
+            { title: "Метод динамического программирования", name: "DYNAMIC_PROGRAMMING" }
+        ];
 
         $scope.addConnector = function() {
             $scope.connectors.push({
@@ -31,7 +32,7 @@ angular.module('tracer')
             } else {
                 return [];
             }
-        }
+        };
 
         $scope.showConnectorDeleteConfirm = function(index) {
             var confirm = $mdDialog.confirm()
@@ -65,15 +66,33 @@ angular.module('tracer')
                   .cancel('Нет');
 
             $mdDialog.show(confirm).then(function() {
-                alert("hello!");
+                $scope.adviceMethod();
             });
+        };
+
+        $scope.adviceMethod = function() {
+            var field = $scope.generateField();
+            var totalOccupancy = 0;
+            var totalCapacity = 0;
+            field.links.forEach(function(link) {
+                totalOccupancy += link.occupancy;
+            });
+
+            field.connectors.forEach(function(connector) {
+                totalCapacity += connector.topChannel.capacity + connector.bottomChannel.capacity;
+            });
+
+            var strengthCoefficient = totalOccupancy / (totalCapacity / field.connectors.length);
+            if (strengthCoefficient > 1) {
+
+            }
         };
 
         $scope.traceField = function() {
             $scope.field = $scope.generateJSON();
         };
 
-        $scope.generateJSON = function() {
+        $scope.generateField = function() {
             var field = {
                 connectors: [],
                 links: []
@@ -97,7 +116,7 @@ angular.module('tracer')
                         container: connector.index,
                         x: (connector.width / 3) * lineNumber,
                         y: (connector.height / (rowsNumber + 1)) * ((rawConnector.pinsAmount % i) + 1)
-                    }
+                    };
 
                     connector.pins.push(pin);
                 }
@@ -106,13 +125,13 @@ angular.module('tracer')
                     container: connector.index,
                     capacity: rawConnector.topChannelCapacity,
                     isTop: true
-                }
+                };
 
                 connector.bottomChannel = {
                     container: connector.index,
                     capacity: rawConnector.bottomChannelCapacity,
                     isTop: false
-                }
+                };
 
                 field.connectors.push(connector);
             });
@@ -127,7 +146,7 @@ angular.module('tracer')
                 field.links.push(link);
             });
             
-            return JSON.stringify(field);
+            return field;
         }
         
     }

@@ -14,6 +14,14 @@ angular.module('tracer')
             $scope.minChannelCapacity = 4;
             $scope.maxChannelCapacity = 6;
 
+            $scope.algorithms = [
+                { title: "Метод полного перебора", name: "BRUTE_FORCE" },
+                { title: "Метод ветвей и границ", name: "BRANCH_AND_BOUND" },
+                { title: "Метод динамического программирования", name: "DYNAMIC_PROGRAMMING" }
+            ];
+
+            $scope.algorithmType = $scope.algorithms[1].name;
+
             $scope.traceField = function() {
                 var queryString = $httpParamSerializer({
                     debugEnabled: $scope.isDebugEnabled,

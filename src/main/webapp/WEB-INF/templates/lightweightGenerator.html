@@ -1,38 +1,48 @@
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
-
-    <link rel="stylesheet" href="resources/css/tracer.css"/>
-
-    <div>
-        <p>Amount of connectors: <input ng-model="connectorsAmount"></p>
-        <p>Amount of links: <input ng-model="linksAmount"></p>
-        <p>Amount of pins in connector: <input ng-model="pinsAmount"></p>
-        <p>Amount of pins columns: <input ng-model="columnPinsAmount"></p>
-        <p>Minimal channel capacity: <input ng-model="minChannelCapacity"></p>
-        <p>Maximal channel capacity: <input ng-model="maxChannelCapacity"></p>
-        <p>Algorithm type
-            <select ng-model="algorithmType">
-                <option value="BRUTE_FORCE">Brute force</option>
-                <option value="BRANCH_AND_BOUND">Branch and bound</option>
-                <option value="DYNAMIC_PROGRAMMING">Dynamic programming</option>
-            </select>
-        </p>
-        <p>Find best solution <input type="checkbox" ng-model="requireBestSolution"></p>
-        <p>Enable debug <input type="checkbox" ng-model="isDebugEnabled"></p>
-        <div>
-            <button ng-click="generateField()"
-                    ng-disabled="connectorsAmount < 3 || linksAmount < 1 || !pinsAmount || pinsRowsAmount < 1">Generate Field</button>
+<md-content layout-padding>
+    <div layout-lg md-whiteframe="6">
+        <div layout>
+            <md-input-container flex>
+                <label>Количество разъемов</label>
+                <input ng-model="connectorsAmount">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Количество связей</label>
+                <input ng-model="linksAmount">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Количество выводов разъема</label>
+                <input ng-model="pinsAmount">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Количество колонок выводов</label>
+                <input ng-model="columnPinsAmount">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Минимальная емкость каналов</label>
+                <input ng-model="minChannelCapacity">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Максимальная емкость каналов</label>
+                <input ng-model="maxChannelCapacity">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Метод решения</label>
+                <md-select ng-model="algorithmType" placeholder="Выберите метод решения">
+                    <md-optgroup>
+                        <md-option ng-value="algorithm.name" ng-repeat="algorithm in algorithms track by $index">
+                            {{algorithm.title}}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+            </md-input-container>
         </div>
+        <div layout>
+            <md-button class="md-raised" ng-click="generateField()"
+                       ng-disabled="connectorsAmount < 3 || linksAmount < 1 || !pinsAmount || pinsRowsAmount < 1">Сгенерировать поле</md-button>
+            <md-button ng-click="traceField()" ng-disabled="!field" class="md-raised">Решить задачу</md-button>
+        </div>
+        <textarea class="tall wide" ng-model="field"></textarea>
     </div>
+</md-content>
 
-    <textarea class="wide tall" ng-model="field"></textarea>
-
-    <div>
-        <button ng-click="traceField()" ng-disabled="!field">Trace field</button>
-    </div>
-
-    <script src="resources/js/lightweightGenerator.js"></script>
-</body>
-</html>
+<script src="resources/js/lightweightGenerator.js"></script>
